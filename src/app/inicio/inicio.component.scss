@@ -1,0 +1,35 @@
+.content {
+    width: 90%;
+    max-width: 1000px;
+    margin: 1.6em auto;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: 40% 60%;
+    //grid-template-columns: repeat(6,1fr);
+    //grid-template-rows: 200px;
+    //grid-template-rows: minmax(100px,auto);
+    column-gap: 1em;
+    row-gap: 3em;
+    justify-items: center; //alineacion y (fila entera)
+    //align-items: center; //align x
+    //align-self: start; // alineacion (para cada uno de los elementos)
+}
+.text-card h1{
+    padding: 20px 0;
+    // text-align: center;
+    font-size: 2.9em;
+}
+
+@media screen and (max-width: 768px) {
+    .grid {
+        display: grid;
+        grid-template-columns: 100%;
+        text-align: center;
+        row-gap: 0.1em;
+    }
+    article {
+        margin-bottom: 5em;
+    }
+}
