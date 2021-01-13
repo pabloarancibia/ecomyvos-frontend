@@ -1,16 +1,19 @@
-<p>
-    <mat-toolbar color="primary" class="mat-elevation-z8">
+<mat-toolbar color="primary" class="mat-elevation-z8">
+    <mat-toolbar-row>
         <!-- <button mat-icon-button class="" aria-label="">
             <mat-icon>menu</mat-icon>
         </button> -->
         <span>ECOM Y VOS</span>
         <span class="spacer"></span>
-        <a mat-button routerLink="inicio">Inicio</a>
-        <a mat-button>Talleres</a>
-        <a mat-button>Alumnos</a>
-        <a mat-button>Multiplicadores</a>
+        <div class="row between-xs middle-xs header-row">
+            <nav>
+                <a mat-button routerLink="/inicio">Inicio</a>
+                <a mat-button>Talleres</a>
+                <a mat-button>Alumnos</a>
+                <a mat-button>Multiplicadores</a>
 
-
-        <a mat-raised-button color="">Ingresar</a>
-    </mat-toolbar>
-</p>
+                <a mat-raised-button routerLink="/auth/login" color="">Ingresar</a>
+            </nav>
+        </div>
+    </mat-toolbar-row>
+</mat-toolbar>

@@ -7,6 +7,8 @@ import { InicioModule } from './inicio/inicio.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LayoutComponent } from './layout/layout.component';
 import { SharedModule } from './shared/shared.module';
+import { FlexLayoutModule } from '@angular/flex-layout';
+
 
 @NgModule({
   declarations: [
@@ -18,7 +20,8 @@ import { SharedModule } from './shared/shared.module';
     AppRoutingModule,
     InicioModule,
     BrowserAnimationsModule,
-    SharedModule
+    SharedModule,
+    FlexLayoutModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

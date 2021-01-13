@@ -1,0 +1,29 @@
+<div class="login-form-flex">
+    <!-- <form [formGroup]="form" (ngSubmit)="login($event)"> -->
+    <form>
+        <mat-card>
+            <mat-card-header>
+                <mat-card-title>Ingresar</mat-card-title>
+            </mat-card-header>
+            <mat-card-content>
+                <div class="row">
+                    <div class="col-xs">
+                        <mat-form-field>
+                            <input placeholder="email" matInput type="email">
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs">
+                        <mat-form-field>
+                            <input placeholder="contraseña" matInput type="password">
+                        </mat-form-field>
+                    </div>
+                </div>
+            </mat-card-content>
+            <mat-card-actions>
+                <button mat-raised-button type="submit" color="primary">Ingresar</button>
+            </mat-card-actions>
+        </mat-card>
+    </form>
+</div>
