@@ -1,0 +1,74 @@
+<div class="content">
+    <form>
+        <mat-card>
+            <mat-card-header>
+                <mat-card-title>Agregar Capacitación</mat-card-title>
+            </mat-card-header>
+            <mat-card-content>
+                <mat-form-field appearance="fill">
+                    <mat-label>Nombre</mat-label>
+                    <input matInput>
+                </mat-form-field>
+                <br>
+                <mat-form-field appearance="fill">
+                    <mat-label>Fundación / Asociación Civil</mat-label>
+                    <input matInput>
+                </mat-form-field>
+                <br>
+                <mat-form-field appearance="fill">
+                    <mat-label>Ubicación</mat-label>
+                    <input matInput>
+                </mat-form-field>
+                <br>
+                <mat-form-field color="accent" appearance="fill">
+                    <mat-label>Fecha de Inicio</mat-label>
+                    <input matInput [matDatepicker]="fechaInicio">
+                    <mat-datepicker-toggle matSuffix [for]="fechaInicio"></mat-datepicker-toggle>
+                    <mat-datepicker #fechaInicio></mat-datepicker>
+                </mat-form-field>
+                <br>
+                <mat-form-field color="accent" appearance="fill">
+                    <mat-label>Fecha de Fin</mat-label>
+                    <input matInput [matDatepicker]="fechaFin">
+                    <mat-datepicker-toggle matSuffix [for]="fechaFin"></mat-datepicker-toggle>
+                    <mat-datepicker #fechaFin></mat-datepicker>
+                </mat-form-field>
+                <br>
+
+                <div class="timepicker">
+                    <i class="material-icons time">
+                        access_time
+                    </i>
+                    <input placeholder="Hora Inicio" aria-label="Hora Inicio" [ngxTimepicker]="hrInicio" [format]="24">
+
+                    <ngx-material-timepicker #hrInicio [minutesGap]="5"></ngx-material-timepicker>
+                </div>
+                <br>
+
+                <div class="timepicker">
+                    <span class="material-icons time">
+                        access_time
+                    </span>
+                    <input placeholder="Hora Fin" aria-label="Hora Fin" [ngxTimepicker]="hrFin" [format]="24">
+                    <ngx-material-timepicker #hrFin [minutesGap]="5"></ngx-material-timepicker>
+
+                </div>
+                <br>
+                <mat-form-field appearance="fill">
+                    <mat-label>Temas</mat-label>
+                    <mat-select [formControl]="toppings" multiple>
+                        <mat-select-trigger>
+                            {{toppings.value ? toppings.value[0] : ''}}
+                            <span *ngIf="toppings.value?.length > 1" class="example-additional-selection">
+                                (+{{toppings.value.length - 1}} {{toppings.value?.length === 2 ? 'other' : 'others'}})
+                            </span>
+                        </mat-select-trigger>
+                        <mat-option *ngFor="let topping of toppingList" [value]="topping">{{topping}}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+                <br>
+                <button mat-raised-button color="primary">Guardar</button>
+            </mat-card-content>
+        </mat-card>
+    </form>
+</div>
