@@ -24,6 +24,14 @@ const routes: Routes = [
         path: 'capacitaciones',
         loadChildren: () => import('./capacitaciones/capacitaciones.module').then(m => m.CapacitacionesModule)
       },
+      {
+        path: 'alumnos',
+        loadChildren: () => import('./alumnos/alumnos.module').then(m => m.AlumnosModule)
+      },
+      {
+        path: 'instructores',
+        loadChildren: () => import('./instructores/instructores.module').then(m => m.InstructoresModule)
+      },
 
     ]
   },

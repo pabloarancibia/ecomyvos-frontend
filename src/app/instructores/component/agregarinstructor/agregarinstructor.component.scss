@@ -1,0 +1,48 @@
+.content {
+    display: flex;
+    flex: 1 1 auto;
+    justify-content: center;
+    align-items: center;
+    min-height: 70%;
+  }
+
+form {
+    width: 40%;
+    text-align: center;
+    margin: 3em;
+}
+
+.mat-card-header {
+    justify-content: center;
+    margin: 2em;
+}
+.mat-card-title {
+    font-size: 30px;
+}
+
+mat-form-field {
+    width: 50%;    
+  }
+
+.mat-card-content button {
+    margin: 2em;
+    width: 150px;
+}
+
+@media screen and (max-width: 768px) {
+    form {
+      width: 100%;
+    }
+    .mat-card-title {
+      font-size: 20px;
+    }
+    
+    mat-form-field {
+        width: 100%;    
+      }
+    
+      .timepicker {
+        width: 100px;
+          
+      }
+    }
