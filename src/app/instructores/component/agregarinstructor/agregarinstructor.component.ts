@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-agregarinstructor',
@@ -8,6 +9,16 @@ import { Component, OnInit } from '@angular/core';
 export class AgregarinstructorComponent implements OnInit {
 
   constructor() { }
+
+  toppings = new FormControl();
+
+  toppingList: string[] = [
+    'Nombre ',
+    'Nombre | Organización | Ubicación | Fecha',
+    'Nombre | Organización | Ubicación | Fecha',
+    'Nombre | Organización | Ubicación | Fecha',
+    'Nombre | Organización | Ubicación | Fecha',
+    'Nombre | Organización | Ubicación | Fecha'];
 
   ngOnInit(): void {
   }

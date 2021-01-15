@@ -6,6 +6,7 @@ import { AlumnosComponent } from './component/alumnos/alumnos.component';
 import { AgregaralumnoComponent } from './component/agregaralumno/agregaralumno.component';
 
 import { MaterialModule } from '../material/material.module';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 
@@ -15,6 +16,8 @@ import { MaterialModule } from '../material/material.module';
     CommonModule,
     AlumnosRoutingModule,
     MaterialModule,
+    ReactiveFormsModule,
+    FormsModule
   ]
 })
 export class AlumnosModule { }

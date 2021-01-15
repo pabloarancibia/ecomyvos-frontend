@@ -7,6 +7,7 @@ import { VercapacitacionComponent } from './component/vercapacitacion/vercapacit
 
 import { MaterialModule } from '../material/material.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { AsignacionesComponent } from './component/asignaciones/asignaciones.component';
 
 
 
@@ -14,7 +15,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
   declarations: [
     CapacitacionesComponent,
     AgregarcapacitacionComponent,
-    VercapacitacionComponent
+    VercapacitacionComponent,
+    AsignacionesComponent
   ],
   imports: [
     CommonModule,

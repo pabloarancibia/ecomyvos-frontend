@@ -10,10 +10,10 @@ import { FormControl } from '@angular/forms';
 export class AgregarcapacitacionComponent implements OnInit {
 
   constructor() { }
-
-  ngOnInit(): void {
-  }
   toppings = new FormControl();
 
   toppingList: string[] = ['TGD', 'Correo Electrónico', 'Computación', 'Internet'];
+
+  ngOnInit(): void {
+  }
 }

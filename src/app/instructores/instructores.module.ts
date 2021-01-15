@@ -4,6 +4,7 @@ import { InstructoresRoutingModule } from './instructores-routing.module';
 import { InstructoresComponent } from './component/instructores/instructores.component';
 import { AgregarinstructorComponent } from './component/agregarinstructor/agregarinstructor.component';
 import { MaterialModule } from '../material/material.module';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 
@@ -12,7 +13,9 @@ import { MaterialModule } from '../material/material.module';
   imports: [
     CommonModule,
     InstructoresRoutingModule,
-    MaterialModule
+    MaterialModule,
+    FormsModule,
+    ReactiveFormsModule
   ]
 })
 export class InstructoresModule { }

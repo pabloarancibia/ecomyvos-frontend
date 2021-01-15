@@ -10,6 +10,8 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatSelectModule } from '@angular/material/select';
+// import { MatTableDataSource } from '@angular/material/table';
+import { MatTableModule } from '@angular/material/table';
 
 /**
  * ngx-material-timepicker 
@@ -32,7 +34,10 @@ import { NgxMaterialTimepickerModule } from 'ngx-material-timepicker';
     MatNativeDateModule,
     NgxMaterialTimepickerModule,
     MatDividerModule,
-    MatSelectModule
+    MatSelectModule,
+    // MatTableDataSource,
+    MatTableModule,
+
   ],
   exports: [
     MatToolbarModule,
@@ -45,7 +50,10 @@ import { NgxMaterialTimepickerModule } from 'ngx-material-timepicker';
     MatNativeDateModule,
     NgxMaterialTimepickerModule,
     MatDividerModule,
-    MatSelectModule
+    MatSelectModule,
+    // MatTableDataSource,
+    MatTableModule,
+
   ]
 })
 export class MaterialModule { }

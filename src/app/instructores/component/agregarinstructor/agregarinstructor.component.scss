@@ -29,6 +29,11 @@ mat-form-field {
     width: 150px;
 }
 
+.example-additional-selection {
+    opacity: 0.75;
+    font-size: 0.75em;
+  }
+
 @media screen and (max-width: 768px) {
     form {
       width: 100%;
