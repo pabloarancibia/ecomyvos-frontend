@@ -89,10 +89,10 @@
         <ng-container matColumnDef="accion">
             <th mat-header-cell *matHeaderCellDef> Accion </th>
             <td mat-cell *matCellDef="let element">
-                <button mat-mini-fab color="primary" aria-label="añadir">
+                <button mat-mini-fab color="primary" matTooltip="Asignar como Instructor" aria-label="añadir">
                     <mat-icon>person_add</mat-icon>
                 </button>
-                <button mat-mini-fab color="warn" aria-label="quitar">
+                <button mat-mini-fab color="warn" matTooltip="Quitar como Instructor" aria-label="quitar">
                     <mat-icon>clear</mat-icon>
                 </button>
             </td>
@@ -151,10 +151,10 @@
         <ng-container matColumnDef="accion">
             <th mat-header-cell *matHeaderCellDef> Accion </th>
             <td mat-cell *matCellDef="let element">
-                <button mat-mini-fab color="primary" aria-label="añadir">
+                <button mat-mini-fab color="primary" matTooltip="Asignar como Alumno" aria-label="añadir">
                     <mat-icon>person_add</mat-icon>
                 </button>
-                <button mat-mini-fab color="warn" aria-label="quitar">
+                <button mat-mini-fab color="warn" matTooltip="Quitar Alumno" aria-label="quitar">
                     <mat-icon>clear</mat-icon>
                 </button>
             </td>
