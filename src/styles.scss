@@ -9,3 +9,19 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 //     margin: 0;
 //     height: 100%;
 // }
+
+@media screen and (max-width: 768px) {
+    .content {
+        display: grid;
+        grid-template-columns: 100%;
+        justify-content: center;
+        width: 100%;
+        margin: 3em 0 3em 0;
+        overflow-x: scroll;
+    }
+
+    table.mat-table {
+        width: 80%;
+        overflow-x: scroll;
+      }
+}
