@@ -32,6 +32,10 @@ const routes: Routes = [
         path: 'instructores',
         loadChildren: () => import('./instructores/instructores.module').then(m => m.InstructoresModule)
       },
+      {
+        path: 'multiplicadores',
+        loadChildren: () => import('./multiplicadores/multiplicadores.module').then(m => m.MultiplicadoresModule)
+      },
 
     ]
   },

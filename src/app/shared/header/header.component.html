@@ -1,57 +1,58 @@
 <mat-toolbar color="primary" class="mat-elevation-z8">
-    <mat-toolbar-row>
-        <span>ECOM Y VOS</span>
-        <span class="spacer"></span>
-        <div class="buttons">
-            <nav>
-                <a mat-button routerLink="/inicio">Inicio</a>
-                <a mat-button routerLink="/capacitaciones">Capacitaciones</a>
-                <a mat-button routerLink="/instructores">Instructores</a>
-                <a mat-button routerLink="/alumnos">Alumnos</a>
-                <a mat-button>Multiplicadores</a>
-                <a mat-raised-button routerLink="/auth/login" color="">Ingresar</a>
-            </nav>
-        </div>
-<div class="menu">
-            <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
-<mat-icon>menu</mat-icon>
-</button>
-<mat-menu #menu="matMenu">              
-  <button mat-menu-item>
-    <!-- <mat-icon>dialpad</mat-icon> -->
-    <span><a mat-button routerLink="/inicio">Inicio</a>
-</span>
-  </button>
-  <button mat-menu-item>
-    <!-- <mat-icon>voicemail</mat-icon> -->
-    <span><a mat-button routerLink="/capacitaciones">Capacitaciones</a>
-</span>
-  </button>
-  <button mat-menu-item>
-    <!-- <mat-icon>notifications_off</mat-icon> -->
-    <span>
+  <mat-toolbar-row>
+    <span>ECOM Y VOS</span>
+    <span class="spacer"></span>
+    <div class="buttons">
+      <nav>
+        <a mat-button routerLink="/inicio">Inicio</a>
+        <a mat-button routerLink="/capacitaciones">Capacitaciones</a>
         <a mat-button routerLink="/instructores">Instructores</a>
-    </span>
-  </button>
-  <button mat-menu-item>
-    <!-- <mat-icon>notifications_off</mat-icon> -->
-    <span>
         <a mat-button routerLink="/alumnos">Alumnos</a>
-    </span>
-  </button>
-  <button mat-menu-item>
-    <!-- <mat-icon>notifications_off</mat-icon> -->
-    <span>
-        <a mat-button>Multiplicadores</a>
-    </span>
-  </button>
-  <button mat-menu-item>
-    <!-- <mat-icon>notifications_off</mat-icon> -->
-    <span>
+        <a mat-button routerLink="/multiplicadores">Multiplicadores</a>
         <a mat-raised-button routerLink="/auth/login" color="">Ingresar</a>
-    </span>
-  </button>
-</mat-menu>
-</div>   
-    </mat-toolbar-row>
+      </nav>
+    </div>
+    <div class="menu">
+      <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+        <mat-icon>menu</mat-icon>
+      </button>
+      <mat-menu #menu="matMenu">
+        <button mat-menu-item>
+          <!-- <mat-icon>dialpad</mat-icon> -->
+          <span><a mat-button routerLink="/inicio">Inicio</a>
+          </span>
+        </button>
+        <button mat-menu-item>
+          <!-- <mat-icon>voicemail</mat-icon> -->
+          <span><a mat-button routerLink="/capacitaciones">Capacitaciones</a>
+          </span>
+        </button>
+        <button mat-menu-item>
+          <!-- <mat-icon>notifications_off</mat-icon> -->
+          <span>
+            <a mat-button routerLink="/instructores">Instructores</a>
+          </span>
+        </button>
+        <button mat-menu-item>
+          <!-- <mat-icon>notifications_off</mat-icon> -->
+          <span>
+            <a mat-button routerLink="/alumnos">Alumnos</a>
+          </span>
+        </button>
+        <button mat-menu-item>
+          <!-- <mat-icon>notifications_off</mat-icon> -->
+          <span>
+            <a mat-button routerLink="/multiplicadores">Multiplicadores</a>
+          </span>
+        </button>
+
+        <button mat-menu-item>
+          <!-- <mat-icon>notifications_off</mat-icon> -->
+          <span>
+            <a mat-raised-button routerLink="/auth/login" color="">Ingresar</a>
+          </span>
+        </button>
+      </mat-menu>
+    </div>
+  </mat-toolbar-row>
 </mat-toolbar>
