@@ -36,6 +36,14 @@ const routes: Routes = [
         path: 'multiplicadores',
         loadChildren: () => import('./multiplicadores/multiplicadores.module').then(m => m.MultiplicadoresModule)
       },
+      {
+        path: 'asistencias',
+        loadChildren: () => import('./asistencias/asistencias.module').then(m => m.AsistenciasModule)
+      },
+      {
+        path: 'certificados',
+        loadChildren: () => import('./certificados/certificados.module').then(m => m.CertificadosModule)
+      },
 
     ]
   },

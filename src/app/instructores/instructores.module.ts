@@ -5,11 +5,12 @@ import { InstructoresComponent } from './component/instructores/instructores.com
 import { AgregarinstructorComponent } from './component/agregarinstructor/agregarinstructor.component';
 import { MaterialModule } from '../material/material.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { DetalleinstructorComponent } from './component/detalleinstructor/detalleinstructor.component';
 
 
 
 @NgModule({
-  declarations: [InstructoresComponent, AgregarinstructorComponent],
+  declarations: [InstructoresComponent, AgregarinstructorComponent, DetalleinstructorComponent],
   imports: [
     CommonModule,
     InstructoresRoutingModule,

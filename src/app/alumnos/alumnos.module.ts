@@ -7,11 +7,12 @@ import { AgregaralumnoComponent } from './component/agregaralumno/agregaralumno.
 
 import { MaterialModule } from '../material/material.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { DetallealumnoComponent } from './component/detallealumno/detallealumno.component';
 
 
 
 @NgModule({
-  declarations: [AlumnosComponent, AgregaralumnoComponent],
+  declarations: [AlumnosComponent, AgregaralumnoComponent, DetallealumnoComponent],
   imports: [
     CommonModule,
     AlumnosRoutingModule,

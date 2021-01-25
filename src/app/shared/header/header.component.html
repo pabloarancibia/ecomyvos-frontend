@@ -9,12 +9,14 @@
         <a mat-button routerLink="/instructores">Instructores</a>
         <a mat-button routerLink="/alumnos">Alumnos</a>
         <a mat-button routerLink="/multiplicadores">Multiplicadores</a>
+        <a mat-button routerLink="/certificados">Certificados</a>
+
         <a mat-raised-button routerLink="/auth/login" color="">Ingresar</a>
       </nav>
     </div>
     <div class="menu">
       <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
-        <mat-icon>menu</mat-icon>
+        <mat-icon>Menu</mat-icon>
       </button>
       <mat-menu #menu="matMenu">
         <button mat-menu-item>
@@ -43,6 +45,12 @@
           <!-- <mat-icon>notifications_off</mat-icon> -->
           <span>
             <a mat-button routerLink="/multiplicadores">Multiplicadores</a>
+          </span>
+        </button>
+        <button mat-menu-item>
+          <!-- <mat-icon>notifications_off</mat-icon> -->
+          <span>
+            <a mat-button routerLink="/certificados">Certificados</a>
           </span>
         </button>
 

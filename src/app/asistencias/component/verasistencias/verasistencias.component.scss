@@ -1,0 +1,26 @@
+.content {
+    display: grid;
+    grid-template-columns: 80%;
+    justify-content: center;
+    width: 100%;
+    margin: 3em 0 3em 0;
+}
+
+.capacitacion {
+    background-color: rgb(173, 178, 241);
+  }
+
+/* Structure */
+table {
+    width: 100%;
+  }
+  
+.mat-form-field {
+    font-size: 14px;
+    width: 100%;
+  }
+
+  .mat-mini-fab.mat-primary {
+    margin-right: 1em;
+}
+

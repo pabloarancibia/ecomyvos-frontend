@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { AgregarinstructorComponent } from './component/agregarinstructor/agregarinstructor.component';
 import { InstructoresComponent } from './component/instructores/instructores.component';
+import { DetalleinstructorComponent } from './component/detalleinstructor/detalleinstructor.component';
 
 const routes: Routes = [
     {
@@ -11,6 +12,10 @@ const routes: Routes = [
     {
         path: 'agregar',
         component: AgregarinstructorComponent
+    },
+    {
+        path: 'detalle',
+        component: DetalleinstructorComponent
     }
 ];
 
