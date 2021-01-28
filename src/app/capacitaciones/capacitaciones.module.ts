@@ -11,7 +11,6 @@ import { AsignacionesComponent } from './component/asignaciones/asignaciones.com
 import { MapaformularioComponent } from './component/mapaformulario/mapaformulario.component';
 
 
-
 @NgModule({
   declarations: [
     CapacitacionesComponent,

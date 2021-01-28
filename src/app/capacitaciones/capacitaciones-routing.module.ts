@@ -5,10 +5,13 @@ import { AsignacionesComponent } from './component/asignaciones/asignaciones.com
 import { CapacitacionesComponent } from './component/capacitaciones/capacitaciones.component';
 import { VercapacitacionComponent } from './component/vercapacitacion/vercapacitacion.component';
 
+import { AuthGuard } from "./../guards/auth.guard";
+
 const routes: Routes = [
     {
         path: '',
-        component: CapacitacionesComponent
+        component: CapacitacionesComponent,
+        canActivate: [AuthGuard]
     },
     {
         path: 'agregar',

@@ -1,6 +1,6 @@
 <div class="login-form-flex">
     <!-- <form [formGroup]="form" (ngSubmit)="login($event)"> -->
-    <form>
+    <form (submit)='signIn()'>
         <mat-card>
             <mat-card-header>
                 <mat-card-title>Ingresar</mat-card-title>
@@ -9,14 +9,16 @@
                 <div class="row">
                     <div class="col-xs">
                         <mat-form-field>
-                            <input placeholder="usuario" matInput type="text">
+                            <input [(ngModel)]="usuario.nombreusuario" name="nombreusuario" placeholder="usuario"
+                                matInput type="text">
                         </mat-form-field>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-xs">
                         <mat-form-field>
-                            <input placeholder="contraseña" matInput type="password">
+                            <input [(ngModel)]="usuario.password" name="password" placeholder="contraseña" matInput
+                                type="password">
                         </mat-form-field>
                     </div>
                 </div>

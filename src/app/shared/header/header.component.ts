@@ -1,4 +1,5 @@
-import { Component, OnInit,ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { AuthService } from './../../services/auth.service';
 
 @Component({
   selector: 'app-header',
@@ -9,7 +10,9 @@ import { Component, OnInit,ViewEncapsulation } from '@angular/core';
 export class HeaderComponent implements OnInit {
 
 
-  constructor() { }
+  constructor(
+    public authService: AuthService
+  ) { }
 
   ngOnInit(): void {
   }

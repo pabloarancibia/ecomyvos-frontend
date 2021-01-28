@@ -10,8 +10,12 @@
         <a mat-button routerLink="/alumnos">Alumnos</a>
         <a mat-button routerLink="/multiplicadores">Multiplicadores</a>
         <a mat-button routerLink="/certificados">Certificados</a>
-
-        <a mat-raised-button routerLink="/auth/login" color="">Ingresar</a>
+        <ng-container *ngIf="!authService.loggedIn(); else loggedIn">
+          <a mat-raised-button routerLink="/auth/login" color="">Ingresar</a>
+        </ng-container>
+        <ng-template #loggedIn>
+          <button mat-raised-button (click)="authService.logout()" color="warn">Salir</button>
+        </ng-template>
       </nav>
     </div>
     <div class="menu">
