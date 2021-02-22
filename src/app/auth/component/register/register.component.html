@@ -57,6 +57,24 @@
                     <input matInput>
                 </mat-form-field>
                 <br>
+                <mat-form-field appearance="fill">
+                    <mat-label>Genero</mat-label>
+                    <mat-select disableRipple>
+                        <mat-option value="1">Masculino</mat-option>
+                        <mat-option value="2">Femenino</mat-option>
+                        <mat-option value="3">Otro...</mat-option>
+                    </mat-select>
+                </mat-form-field>
+                <br>
+                <mat-form-field class="example-full-width" appearance="fill">
+                    <mat-label>Fecha de Nacimiento</mat-label>
+                    <input matInput [matDatepicker]="picker">
+                    <mat-datepicker-toggle matSuffix [for]="picker">
+                        <mat-icon matDatepickerToggleIcon>keyboard_arrow_down</mat-icon>
+                    </mat-datepicker-toggle>
+                    <mat-datepicker #picker></mat-datepicker>
+                </mat-form-field>
+                <br>
 
                 <button type="submit" mat-raised-button color="primary">Registrarse</button>
             </mat-card-content>
