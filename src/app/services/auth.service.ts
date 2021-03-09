@@ -17,11 +17,11 @@ export class AuthService {
   ) { }
 
   signUp(usuario) {
-    return this.http.post<any>(this.URL + '/signup', usuario)
+    return this.http.post<any>(this.URL + 'signup', usuario)
   }
 
   signIn(usuario) {
-    return this.http.post<any>(this.URL + '/signin', usuario)
+    return this.http.post<any>(this.URL + 'signin', usuario)
   }
 
   // Verificar si tiene token

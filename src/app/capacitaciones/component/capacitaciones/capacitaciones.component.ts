@@ -1,18 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 
-
-export interface PeriodicElement {
-  nombre: string;
-  position: number;
-  organizacion: string;
-  ubicacion: string;
-  fecha: string;
-}
-
-const ELEMENT_DATA: PeriodicElement[] = [
-  { position: 1, nombre: 'Computación Básica', organizacion: 'Fundación Crecer', ubicacion: 'B° Provincias Unidas - Mz5 Pc66', fecha: '15/02/2021' },
-];
+import { Capacitaciones } from '../../../models/capacitaciones.model';
+import { CapacitacionesService } from '../../../services/capacitaciones.service';
 
 @Component({
   selector: 'app-capacitaciones',
@@ -20,17 +10,37 @@ const ELEMENT_DATA: PeriodicElement[] = [
   styleUrls: ['./capacitaciones.component.scss']
 })
 export class CapacitacionesComponent implements OnInit {
+  ELEMENT_DATA: Capacitaciones[] = null;
+  displayedColumns: string[] = ['id', 'nombre', 'convenio', 'direccion', 'fechainicio', 'accion'];
+  dataSource = new MatTableDataSource<Capacitaciones>(this.ELEMENT_DATA);
 
-  constructor() { }
 
-  displayedColumns: string[] = ['position', 'nombre', 'organizacion', 'ubicacion', 'fecha', 'accion'];
-  dataSource = new MatTableDataSource(ELEMENT_DATA);
-  applyFilter(event: Event) {
-    const filterValue = (event.target as HTMLInputElement).value;
-    this.dataSource.filter = filterValue.trim().toLowerCase();
-  }
+
+  constructor(
+    private capacitacionesService: CapacitacionesService) { }
 
   ngOnInit(): void {
+    // this.capacitacionesService.getCapacitaciones().then((allCapacitaciones) => {
+    // this.capacitaciones = allCapacitaciones;
+    // console.log(this.capacitaciones);
+    // });
+
+    this.getAllCapacitaciones();
   }
 
+  public getAllCapacitaciones() {
+    let resp = this.capacitacionesService.getCapacitaciones()
+      .then(report => this.dataSource.data = report as Capacitaciones[]);
+  }
+
+  // ELEMENT_DATA = this.capacitaciones;
+
+  // applyFilter(event: Event) {
+  //   const filterValue = (event.target as HTMLInputElement).value;
+  //   this.dataSource.filter = filterValue.trim().toLowerCase();
+
+  // }
+
 }
+
+
