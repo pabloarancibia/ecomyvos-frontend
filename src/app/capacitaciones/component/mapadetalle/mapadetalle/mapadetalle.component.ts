@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import * as L from 'leaflet';
 //marker issue
 import { icon, Marker } from 'leaflet';
@@ -19,21 +19,23 @@ Marker.prototype.options.icon = iconDefault;
 //
 
 @Component({
-  selector: 'app-mapaformulario',
-  templateUrl: './mapaformulario.component.html',
-  styleUrls: ['./mapaformulario.component.scss']
+  selector: 'app-mapadetalle',
+  templateUrl: './mapadetalle.component.html',
+  styleUrls: ['./mapadetalle.component.scss']
 })
-export class MapaformularioComponent implements OnInit {
-  @Output() coordenadas = new EventEmitter();
+export class MapadetalleComponent implements OnInit {
+  @Input('lat') lat : string;
+  @Input('lon') lon : string;
+
 
 
   constructor() { }
 
   ngOnInit(): void {
-    this.añadirMapa();
+    this.añadirMapaDetalle();
   }
 
-  añadirMapa(): void {
+  añadirMapaDetalle(): void {
     const mymap = L.map('mymap').setView([-25.70, -60.19], 7);
 
     L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
@@ -47,25 +49,11 @@ export class MapaformularioComponent implements OnInit {
 
     // var marker = new L.Marker([-27.45, -58.97], { draggable: true });
     // mymap.addLayer(marker);
-    let marker = new L.Marker([-27.45, -58.97]);
-    const that = this;
-    function onMapClick(e): void {
-      mymap.removeLayer(marker);
-      marker = new L.Marker(e.latlng);
+    if (this.lat){
+      let marker = new L.Marker([this.lat, this.lon]);
       mymap.addLayer(marker);
-      marker.bindPopup('<b>Ubicación asignada</b>.').openPopup();
-      that.coordenadas.emit(
-        {
-          lat: e.latlng.lat,
-          lon: e.latlng.lng
-        });
     }
-    mymap.on('click', onMapClick);
-  }
-
-  envioCoordenadas(e): void {
-    this.coordenadas.emit(e.latlng.lat);
+    
   }
 
 }
-

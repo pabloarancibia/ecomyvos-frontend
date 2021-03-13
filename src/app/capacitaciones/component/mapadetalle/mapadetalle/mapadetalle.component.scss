@@ -1,0 +1,17 @@
+@import "~leaflet/dist/leaflet.css";
+
+.map-container {
+  flex: 1 1 auto;
+  width: 100%;
+  transition: width 0.7s ease-out;
+  height: 100%;
+}
+
+.map-frame {
+  border: 2px solid black;
+  height: 100%;
+}
+
+#mymap {
+  height: 100%;
+}

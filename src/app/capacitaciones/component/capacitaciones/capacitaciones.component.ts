@@ -29,17 +29,15 @@ export class CapacitacionesComponent implements OnInit {
   }
 
   public getAllCapacitaciones() {
-    let resp = this.capacitacionesService.getCapacitaciones()
+    this.capacitacionesService.getCapacitaciones()
       .then(report => this.dataSource.data = report as Capacitaciones[]);
   }
 
-  // ELEMENT_DATA = this.capacitaciones;
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
 
-  // applyFilter(event: Event) {
-  //   const filterValue = (event.target as HTMLInputElement).value;
-  //   this.dataSource.filter = filterValue.trim().toLowerCase();
-
-  // }
+  }
 
 }
 

@@ -1,14 +1,23 @@
 .content {
-    display: grid;
-    grid-template-columns: 80%;
-    justify-content: center;
-    width: 100%;
-    margin: 3em 0 3em 0;
+  display: grid;
+  grid-template-columns: 80%;
+  justify-content: center;
+  width: 100%;
+  margin: 3em 0 3em 0;
 }
 
 .editar {
-    
-    display: grid;
-    justify-content: flex-end;
-    margin: 2em 0 2em 0;
+  display: grid;
+  justify-content: flex-end;
+  margin: 2em 0 2em 0;
+}
+.principal {
+  display: grid;
+  grid-template-columns: 50% 50%;
+}
+
+.mapa {
+  margin-top: 50px;
+  height: 400px;
+  border: 1px solid #555;
 }

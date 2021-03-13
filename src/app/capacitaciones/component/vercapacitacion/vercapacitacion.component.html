@@ -1,17 +1,39 @@
 <div class="content">
+<div *ngIf="this.capacitacion">
+
     <div class="editar">
         <button mat-raised-button routerLink="" color="primary">Editar
             Capaticación</button>
     </div>
-    <!-- nombre -->
-    <h1>Computación Básica</h1>
-    <p>Organizacion</p>
-    <p>Ubucacion</p>
-    <p>Instructores</p>
-    <p>Responsable</p>
-    <p>Fecha de Inicio</p>
-    <p>Fecha de Fin</p>
-    <p>Temas</p>
-    <p>Porcentaje de Asistencias</p>
-    
+    <!-- Datos -->
+    <div class="principal">
+<div class="datos">
+    <mat-list role="list">
+    <mat-list-item role="listitem"><blockquote><h1>{{capacitacion.nombre | uppercase}}</h1></blockquote></mat-list-item>
+    <mat-list-item role="listitem"><blockquote><strong> Organización:</strong></blockquote> {{capacitacion.convenio}}</mat-list-item>
+    <mat-list-item role="listitem"><blockquote><strong> Localidad:</strong></blockquote> {{capacitacion.localidad}}</mat-list-item>
+    <mat-list-item role="listitem"><blockquote><strong> Cicuito:</strong></blockquote> {{capacitacion.circuito}}</mat-list-item>
+    <mat-list-item role="listitem"><blockquote><strong> Dirección:</strong></blockquote> {{capacitacion.direccion}}</mat-list-item>
+    <mat-list-item role="listitem"><blockquote><strong> Fecha de Inicio:</strong></blockquote> {{capacitacion.fechainicio | date: 'dd/MM/yyyy'}}</mat-list-item>
+    <mat-list-item role="listitem"><blockquote><strong> Fecha de Fin:</strong></blockquote> {{capacitacion.fechafin | date: 'dd/MM/yyyy'}}</mat-list-item>
+    <mat-list-item role="listitem"><blockquote><strong> Hora desde:</strong></blockquote> {{capacitacion.horainicio}}</mat-list-item>
+    <mat-list-item role="listitem"><blockquote><strong> Hora hasta:</strong></blockquote> {{capacitacion.horafin}}</mat-list-item>
+    <mat-list-item role="listitem"><blockquote><strong> Conectividad descarga (mbps):</strong></blockquote> {{capacitacion.conectividad_down}}</mat-list-item>
+    <mat-list-item role="listitem"><blockquote><strong> Conectividad subida (mbps):</strong></blockquote> {{capacitacion.conectividad_up}}</mat-list-item>
+    <mat-list-item role="listitem"><blockquote><strong> Observaciones:</strong></blockquote> {{capacitacion.observaciones}}</mat-list-item>
+    <hr>
+    <mat-list-item role="listitem"><blockquote><strong> Estado:</strong></blockquote> {{capacitacion.estado | uppercase}}</mat-list-item>
+    <mat-list-item role="listitem"><blockquote><strong> Creado:</strong></blockquote> {{capacitacion.createdAt | date: 'dd/MM/yyyy - HH:mm'}}hs</mat-list-item>
+    <mat-list-item role="listitem"><blockquote><strong> Última modificación:</strong></blockquote> {{capacitacion.updatedAt | date: 'dd/MM/yyyy - HH:mm'}}hs</mat-list-item>
+    </mat-list>
+</div>
+<div class="mapa">
+    <app-mapadetalle 
+        [lat]=capacitacion.latitud
+        [lon]=capacitacion.longitud>
+    </app-mapadetalle>
+</div>
+</div>
+        <button mat-raised-button color="warn" (click)="modificarCapacitacion(this.capacitacion.id)"> Eliminar</button>
+</div>
 </div>

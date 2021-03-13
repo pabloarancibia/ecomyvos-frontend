@@ -9,6 +9,7 @@ import { MaterialModule } from '../material/material.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AsignacionesComponent } from './component/asignaciones/asignaciones.component';
 import { MapaformularioComponent } from './component/mapaformulario/mapaformulario.component';
+import { MapadetalleComponent } from './component/mapadetalle/mapadetalle/mapadetalle.component';
 
 
 @NgModule({
@@ -17,7 +18,8 @@ import { MapaformularioComponent } from './component/mapaformulario/mapaformular
     AgregarcapacitacionComponent,
     VercapacitacionComponent,
     AsignacionesComponent,
-    MapaformularioComponent
+    MapaformularioComponent,
+    MapadetalleComponent
   ],
   imports: [
     CommonModule,

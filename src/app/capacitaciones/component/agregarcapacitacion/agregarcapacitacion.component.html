@@ -1,5 +1,5 @@
 <div class="content">
-    <form>
+    <form [formGroup]="form" (ngSubmit)="agregarCapacitacion($event)">
         <mat-card>
             <mat-card-header>
                 <mat-card-title>Agregar Capacitación</mat-card-title>
@@ -7,29 +7,39 @@
             <mat-card-content>
                 <mat-form-field appearance="fill">
                     <mat-label>Nombre</mat-label>
-                    <input matInput>
+                    <input formControlName="nombre" matInput>
                 </mat-form-field>
                 <br>
                 <mat-form-field appearance="fill">
                     <mat-label>Fundación / Asociación Civil</mat-label>
-                    <input matInput>
+                    <input matInput formControlName="convenio">
                 </mat-form-field>
                 <br>
                 <mat-form-field appearance="fill">
-                    <mat-label>Ubicación</mat-label>
-                    <input matInput>
+                    <mat-label>Localidad</mat-label>
+                    <input matInput formControlName="localidad">
+                </mat-form-field>
+                <br>
+                <mat-form-field appearance="fill">
+                    <mat-label>Circuito</mat-label>
+                    <input matInput formControlName="circuito">
+                </mat-form-field>
+                <br>
+                <mat-form-field appearance="fill">
+                    <mat-label>Dirección</mat-label>
+                    <input matInput formControlName="direccion">
                 </mat-form-field>
                 <br>
                 <mat-form-field color="accent" appearance="fill">
                     <mat-label>Fecha de Inicio</mat-label>
-                    <input matInput [matDatepicker]="fechaInicio">
+                    <input matInput [matDatepicker]="fechaInicio" formControlName="fechainicio">
                     <mat-datepicker-toggle matSuffix [for]="fechaInicio"></mat-datepicker-toggle>
                     <mat-datepicker #fechaInicio></mat-datepicker>
                 </mat-form-field>
                 <br>
                 <mat-form-field color="accent" appearance="fill">
                     <mat-label>Fecha de Fin</mat-label>
-                    <input matInput [matDatepicker]="fechaFin">
+                    <input matInput [matDatepicker]="fechaFin" formControlName="fechafin">
                     <mat-datepicker-toggle matSuffix [for]="fechaFin"></mat-datepicker-toggle>
                     <mat-datepicker #fechaFin></mat-datepicker>
                 </mat-form-field>
@@ -39,7 +49,8 @@
                     <i class="material-icons time">
                         access_time
                     </i>
-                    <input placeholder="Hora Inicio" aria-label="Hora Inicio" [ngxTimepicker]="hrInicio" [format]="24">
+                    <input placeholder="Hora Inicio" aria-label="Hora Inicio" [ngxTimepicker]="hrInicio" [format]="24"
+                        formControlName="horainicio">
 
                     <ngx-material-timepicker #hrInicio [minutesGap]="5"></ngx-material-timepicker>
                 </div>
@@ -49,30 +60,56 @@
                     <span class="material-icons time">
                         access_time
                     </span>
-                    <input placeholder="Hora Fin" aria-label="Hora Fin" [ngxTimepicker]="hrFin" [format]="24">
+                    <input placeholder="Hora Fin" aria-label="Hora Fin" [ngxTimepicker]="hrFin" [format]="24"
+                        formControlName="horafin">
                     <ngx-material-timepicker #hrFin [minutesGap]="5"></ngx-material-timepicker>
 
                 </div>
                 <br>
-                <mat-form-field appearance="fill">
+                <!-- <mat-form-field appearance="fill">
                     <mat-label>Temas</mat-label>
                     <mat-select [formControl]="toppings" multiple>
                         <mat-select-trigger>
                             {{toppings.value ? toppings.value[0] : ''}}
                             <span *ngIf="toppings.value?.length > 1" class="example-additional-selection">
-                                (+{{toppings.value.length - 1}} {{toppings.value?.length === 2 ? 'other' : 'others'}})
+                                (+{{toppings.value.length - 1}} {{toppings.value?.length === 2 ? 'otro' : 'otros'}})
                             </span>
                         </mat-select-trigger>
                         <mat-option *ngFor="let topping of toppingList" [value]="topping">{{topping}}</mat-option>
                     </mat-select>
+                </mat-form-field> -->
+
+                <!-- <mat-form-field appearance="fill">
+                    <mat-label>Temas</mat-label>
+                    <input matInput formControlName="horafin" >
+                </mat-form-field> -->
+                <br>
+                <mat-form-field appearance="fill">
+                    <mat-label>Conectividad (Descarga)</mat-label>
+                    <input matInput formControlName="conectividad_up">
+                </mat-form-field>
+                <br>
+                <mat-form-field appearance="fill">
+                    <mat-label>Conectividad (Subida)</mat-label>
+                    <input matInput formControlName="conectividad_down">
                 </mat-form-field>
                 <br>
                 <div class="mapa">
-                    <app-mapaformulario></app-mapaformulario>
+                    <app-mapaformulario (coordenadas)="latlon($event)"></app-mapaformulario>
                 </div>
 
+                <input matInput formControlName="latitud" hidden>
+                <input matInput formControlName="longitud" hidden>
+
                 <br>
-                <button mat-raised-button color="primary">Guardar</button>
+                <mat-form-field appearance="fill">
+                    <mat-label>Observaciones</mat-label>
+                    <input matInput formControlName="observaciones">
+                </mat-form-field>
+                <br>
+                <button mat-raised-button color="primary">
+                    Guardar
+                </button>
             </mat-card-content>
         </mat-card>
     </form>

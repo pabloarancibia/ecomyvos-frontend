@@ -18,7 +18,7 @@ const routes: Routes = [
         component: AgregarcapacitacionComponent
     },
     {
-        path: 'ver',
+        path: 'ver/:id',
         component: VercapacitacionComponent
     },
     {
