@@ -29,7 +29,8 @@ export class VercapacitacionComponent implements OnInit {
       try {
         await this.capacitacionesService.getCapacitacion(id)
           .then(report => {
-            this.capacitacion = report;
+            this.capacitacion = report,
+            console.log(this.capacitacion);
             });
       } catch (error) {
         console.log(error);

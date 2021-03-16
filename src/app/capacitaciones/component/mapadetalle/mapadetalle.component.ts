@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input,Output, EventEmitter } from '@angular/core';
 import * as L from 'leaflet';
 //marker issue
 import { icon, Marker } from 'leaflet';
@@ -24,8 +24,10 @@ Marker.prototype.options.icon = iconDefault;
   styleUrls: ['./mapadetalle.component.scss']
 })
 export class MapadetalleComponent implements OnInit {
+  @Output() coordenadas = new EventEmitter();
   @Input('lat') lat : string;
   @Input('lon') lon : string;
+  @Input('isDetailMode') isDetailMode: boolean;
 
 
 
@@ -33,10 +35,15 @@ export class MapadetalleComponent implements OnInit {
 
   ngOnInit(): void {
     this.añadirMapaDetalle();
+    console.log(this.lat)
+    console.log(this.isDetailMode)
+
   }
 
   añadirMapaDetalle(): void {
-    const mymap = L.map('mymap').setView([-25.70, -60.19], 7);
+    let mymap;
+    if (mymap) mymap.remove();
+    mymap = L.map('mymap').setView([this.lat, this.lon], 12);
 
     L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
       attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
@@ -49,10 +56,33 @@ export class MapadetalleComponent implements OnInit {
 
     // var marker = new L.Marker([-27.45, -58.97], { draggable: true });
     // mymap.addLayer(marker);
-    if (this.lat){
-      let marker = new L.Marker([this.lat, this.lon]);
-      mymap.addLayer(marker);
-    }
+    if(!this.isDetailMode){
+      if (this.lat){
+        let marker = new L.Marker([this.lat, this.lon]);
+        mymap.addLayer(marker);
+
+        const that = this;
+    
+      function onMapClick(e): void {
+        mymap.removeLayer(marker);
+        marker = new L.Marker(e.latlng);
+        mymap.addLayer(marker);
+        marker.bindPopup('<b>Nueva ubicación asignada</b>.').openPopup();
+        that.coordenadas.emit(
+          {
+            lat: e.latlng.lat,
+            lon: e.latlng.lng
+          });
+      }
+      mymap.on('click', onMapClick);
+      
+      }
+    }else{
+      if (this.lat){
+        let marker = new L.Marker([this.lat, this.lon]);
+        mymap.addLayer(marker);
+      }
+    };
     
   }
 

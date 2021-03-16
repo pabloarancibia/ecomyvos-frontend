@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, FormGroupDirective, Validators } from '@angular/forms';
-
+import { ActivatedRoute, Router } from '@angular/router';
 import { Capacitaciones } from '../../../models/capacitaciones.model';
 import { CapacitacionesService } from '../../../services/capacitaciones.service';
 
@@ -15,12 +15,16 @@ export class AgregarcapacitacionComponent implements OnInit {
 
   public capacitacion: Capacitaciones = { nombre: '' };
 
-  // Form+
+  // Iniciales
   form: FormGroup;
+  id: string;
+  isAddMode: boolean =  true;
 
   constructor(
     private capacitacionesService: CapacitacionesService,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private router: Router,
+    private activatedRoute: ActivatedRoute
   ) {
     this.buildForm();
   }
@@ -29,7 +33,13 @@ export class AgregarcapacitacionComponent implements OnInit {
 
   // toppingList: string[] = ['TGD', 'Correo Electrónico', 'Computación', 'Internet'];
 
-  ngOnInit(): void { }
+  ngOnInit(): void { 
+    this.id = this.activatedRoute.snapshot.params['id'];
+    if (this.id){
+      this.isAddMode = false;
+      this.getCapacitacion(this.id);
+    }
+  }
 
   private buildForm(): void {
     this.form = this.formBuilder.group({
@@ -42,23 +52,31 @@ export class AgregarcapacitacionComponent implements OnInit {
       fechafin: ['', [Validators.required]],
       horainicio: [''],
       horafin: [''],
-      conectividad_up: [0],
-      conectividad_down: [0],
+      conectividad_up: [''],
+      conectividad_down: [''],
       observaciones: [''],
-      latitud: [''],
-      longitud: [''],
+      lat: [''],
+      lon: [''],
     });
   }
 
   latlon(e): void {
     console.log(e);
     // tslint:disable: no-string-literal
-    this.form.controls['latitud'].setValue(e.lat);
-    this.form.controls['longitud'].setValue(e.lon);
+    this.form.controls['lat'].setValue(e.lat);
+    this.form.controls['lon'].setValue(e.lon);
   }
 
-  agregarCapacitacion(event: Event): void {
-    event.preventDefault();
+  onSubmit(){
+    if(this.isAddMode){
+      this.agregarCapacitacion();
+    }else{
+      this.editarCapacitacion(this.id);
+    }
+  }
+
+  agregarCapacitacion(): void {
+    // event.preventDefault();
     if (this.form.valid) {
       console.log(this.form.value);
       const capacitacion = this.form.value;
@@ -66,7 +84,8 @@ export class AgregarcapacitacionComponent implements OnInit {
         .then(
           res => {
             this.formGroupDirective.resetForm(),
-              console.log(res);
+              console.log(res),
+              this.router.navigate(['capacitaciones']);
 
           }
         )
@@ -74,5 +93,26 @@ export class AgregarcapacitacionComponent implements OnInit {
     }
 
   }
+  private editarCapacitacion(id){
+    this.capacitacionesService.modificarCapacitacion(id,this.form.value)
+    .then(res=>{
+      this.router.navigate(['capacitaciones']);
+    })
+    .catch(err=>console.log(err));
 
+  }
+  private async getCapacitacion(id) {
+    try {
+      await this.capacitacionesService.getCapacitacion(id)
+        .then(report => {
+          console.log(report);
+          this.capacitacion = report;
+          this.form.patchValue(report);
+
+          });
+    } catch (error) {
+      console.log(error);
+    }
+    
+}
 }

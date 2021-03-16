@@ -2,6 +2,7 @@ import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import * as L from 'leaflet';
 //marker issue
 import { icon, Marker } from 'leaflet';
+import { map } from 'rxjs-compat/operator/map';
 const iconRetinaUrl = 'assets/marker-icon-2x.png';
 const iconUrl = 'assets/marker-icon.png';
 const shadowUrl = 'assets/marker-shadow.png';
@@ -30,11 +31,14 @@ export class MapaformularioComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
+    
     this.añadirMapa();
   }
 
   añadirMapa(): void {
-    const mymap = L.map('mymap').setView([-25.70, -60.19], 7);
+    let mymap;
+    if (mymap) mymap.remove();
+    mymap = L.map('mymap').setView([-25.70, -60.19], 7);
 
     L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
       attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
@@ -48,7 +52,9 @@ export class MapaformularioComponent implements OnInit {
     // var marker = new L.Marker([-27.45, -58.97], { draggable: true });
     // mymap.addLayer(marker);
     let marker = new L.Marker([-27.45, -58.97]);
+    
     const that = this;
+    
     function onMapClick(e): void {
       mymap.removeLayer(marker);
       marker = new L.Marker(e.latlng);

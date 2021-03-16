@@ -1,8 +1,10 @@
 <div class="content">
-    <form [formGroup]="form" (ngSubmit)="agregarCapacitacion($event)">
+    <form [formGroup]="form" (ngSubmit)="onSubmit()">
         <mat-card>
             <mat-card-header>
-                <mat-card-title>Agregar Capacitación</mat-card-title>
+                <mat-card-title *ngIf="isAddMode">Agregar Capacitación</mat-card-title>
+                <mat-card-title *ngIf="!isAddMode">Editar Capacitación</mat-card-title>
+
             </mat-card-header>
             <mat-card-content>
                 <mat-form-field appearance="fill">
@@ -45,18 +47,32 @@
                 </mat-form-field>
                 <br>
 
-                <div class="timepicker">
+                <div *ngIf="!isAddMode">
+                <br>
+                    <mat-form-field appearance="fill">
+                        <mat-label>Hora Inicio</mat-label>
+                        <input matInput formControlName="horainicio">
+                    </mat-form-field>
+                <br>
+                    <mat-form-field appearance="fill">
+                        <mat-label>Hora Fin</mat-label>
+                        <input matInput formControlName="horafin">
+                    </mat-form-field>
+                <br>                  
+                </div>
+
+                <div *ngIf="isAddMode" class="timepicker">
                     <i class="material-icons time">
                         access_time
                     </i>
                     <input placeholder="Hora Inicio" aria-label="Hora Inicio" [ngxTimepicker]="hrInicio" [format]="24"
-                        formControlName="horainicio">
+                        formControlName="horainicio" >
 
                     <ngx-material-timepicker #hrInicio [minutesGap]="5"></ngx-material-timepicker>
                 </div>
-                <br>
+                
 
-                <div class="timepicker">
+                <div *ngIf="isAddMode" class="timepicker">
                     <span class="material-icons time">
                         access_time
                     </span>
@@ -65,7 +81,6 @@
                     <ngx-material-timepicker #hrFin [minutesGap]="5"></ngx-material-timepicker>
 
                 </div>
-                <br>
                 <!-- <mat-form-field appearance="fill">
                     <mat-label>Temas</mat-label>
                     <mat-select [formControl]="toppings" multiple>
@@ -86,20 +101,30 @@
                 <br>
                 <mat-form-field appearance="fill">
                     <mat-label>Conectividad (Descarga)</mat-label>
-                    <input matInput formControlName="conectividad_up">
+                    <input matInput formControlName="conectividad_down">
                 </mat-form-field>
                 <br>
                 <mat-form-field appearance="fill">
                     <mat-label>Conectividad (Subida)</mat-label>
-                    <input matInput formControlName="conectividad_down">
+                    <input matInput formControlName="conectividad_up">
                 </mat-form-field>
                 <br>
-                <div class="mapa">
+                <div *ngIf="isAddMode" class="mapa">
                     <app-mapaformulario (coordenadas)="latlon($event)"></app-mapaformulario>
                 </div>
+                
+                <div *ngIf="!isAddMode && capacitacion.lat" class="mapa">
+                    <app-mapadetalle
+                        (coordenadas)="latlon($event)"
+                        [lat]=capacitacion.lat
+                        [lon]=capacitacion.lon
+                        [isDetailMode]=isAddMode
+                    >
+                    </app-mapadetalle>
+                </div>
 
-                <input matInput formControlName="latitud" hidden>
-                <input matInput formControlName="longitud" hidden>
+                <input matInput formControlName="lat" hidden>
+                <input matInput formControlName="lon" hidden>
 
                 <br>
                 <mat-form-field appearance="fill">
@@ -107,8 +132,11 @@
                     <input matInput formControlName="observaciones">
                 </mat-form-field>
                 <br>
-                <button mat-raised-button color="primary">
+                <button *ngIf="isAddMode" mat-raised-button color="primary">
                     Guardar
+                </button>
+                <button *ngIf="!isAddMode" mat-raised-button color="primary">
+                    Guardar Cambios
                 </button>
             </mat-card-content>
         </mat-card>

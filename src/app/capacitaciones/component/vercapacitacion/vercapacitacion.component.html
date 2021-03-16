@@ -2,7 +2,7 @@
 <div *ngIf="this.capacitacion">
 
     <div class="editar">
-        <button mat-raised-button routerLink="" color="primary">Editar
+        <button mat-raised-button [routerLink]="['/capacitaciones/editar/', capacitacion.id]" color="primary">Editar
             Capaticación</button>
     </div>
     <!-- Datos -->
@@ -27,13 +27,19 @@
     <mat-list-item role="listitem"><blockquote><strong> Última modificación:</strong></blockquote> {{capacitacion.updatedAt | date: 'dd/MM/yyyy - HH:mm'}}hs</mat-list-item>
     </mat-list>
 </div>
+
 <div class="mapa">
     <app-mapadetalle 
-        [lat]=capacitacion.latitud
-        [lon]=capacitacion.longitud>
+        [lat]=capacitacion.lat
+        [lon]=capacitacion.lon
+        [isDetailMode]=true
+    >
+        
     </app-mapadetalle>
 </div>
 </div>
-        <button mat-raised-button color="warn" (click)="modificarCapacitacion(this.capacitacion.id)"> Eliminar</button>
+<div class="eliminar">
+    <button mat-raised-button color="warn" (click)="modificarCapacitacion(this.capacitacion.id)"> Eliminar</button>
+</div>
 </div>
 </div>
