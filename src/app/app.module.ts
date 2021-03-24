@@ -14,6 +14,8 @@ import { MaterialModule } from './material/material.module';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthGuard } from "./guards/auth.guard";
 import { TokenInterceptorService } from './services/token-interceptor.service';
+import { JwtModule } from "@auth0/angular-jwt";
+
 
 
 
@@ -31,8 +33,17 @@ import { TokenInterceptorService } from './services/token-interceptor.service';
     SharedModule,
     FlexLayoutModule,
     MaterialModule,
-
     HttpClientModule,
+    JwtModule.forRoot({
+      config: {
+        tokenGetter: () => {
+          return localStorage.getItem("access_token");
+        },
+        allowedDomains: ["localhost:4200"],
+        // disallowedRoutes: ["http://example.com/examplebadroute/"],
+      },
+    })
+
   ],
   providers: [
     AuthGuard,
