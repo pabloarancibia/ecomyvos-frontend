@@ -17,43 +17,45 @@ export class LoginComponent implements OnInit {
     password: ''
   };
 
+  public errorMessage;
+
   constructor(
-    // private formBuilder: FormBuilder,
-    // private router: Router,
+    private formBuilder: FormBuilder,
     private authService: AuthService,
     private router: Router
 
   ) {
-    // this.buildForm();
+    this.buildForm();
   }
 
   ngOnInit(): void {
   }
 
-  // login(event: Event){
-  //   event.preventDefault();
-  //   if (this.form.valid) {
-  //     const value = this.form.value;
-  //   }
-  // }
-
   login() {
     console.log('submit');
   }
 
+  private buildForm(): void {
+    this.form = this.formBuilder.group({
+      nombreusuario: ['',[Validators.required]],
+      password: ['',[Validators.required]],
+
+    })
+  }
+
   signIn() {
-    this.authService.signIn(this.usuario)
-      .subscribe(
-        res => {
-          console.log(res);
-          // localStorage.setItem('token', res.token);
-          this.authService.storeUserData(res.token,res.Usuario)
-          this.router.navigate(['/inicio']);
-        },
-        err => {
-          console.log(err)
-        }
-      )
+    if (this.form.valid) {
+      this.usuario = this.form.value;
+      this.authService.signIn(this.usuario)
+        .subscribe(
+          res => {
+            console.log(res);
+            // localStorage.setItem('token', res.token);
+            this.authService.storeUserData(res.token,res.Usuario)
+            this.router.navigate(['/inicio']);
+          }
+        )
+    }
   }
 
 }

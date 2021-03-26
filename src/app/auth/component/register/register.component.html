@@ -1,30 +1,21 @@
 <div class="content">
-    <form (submit)="signUp()">
+    <form [formGroup]="form" (ngSubmit)="signUp()">
         <mat-card>
             <mat-card-header>
                 <mat-card-title>Registrarse</mat-card-title>
             </mat-card-header>
             <mat-card-content>
 
-                <mat-form-field appearance="fill">
-                    <mat-label>Rol</mat-label>
-                    <mat-select disableRipple>
-                        <mat-option value="1">Instructor</mat-option>
-                        <mat-option value="2">Referente Org./Inst.</mat-option>
-                        <mat-option value="3">Otro...</mat-option>
-                    </mat-select>
-                </mat-form-field>
-
                 <br>
 
                 <mat-form-field>
                     <mat-label>Usuario</mat-label>
-                    <input matInput [(ngModel)]="usuario.nombreusuario" name="nombreusuario">
+                    <input matInput formControlName="nombreusuario" name="nombreusuario">
                 </mat-form-field>
                 <br>
                 <mat-form-field>
                     <mat-label>Contraseña</mat-label>
-                    <input [(ngModel)]="usuario.password" name="password" matInput type="password">
+                    <input formControlName="password" name="password" matInput type="password">
                 </mat-form-field>
                 <br>
                 <mat-form-field>
@@ -34,22 +25,22 @@
                 <br>
                 <mat-form-field>
                     <mat-label>Nombre</mat-label>
-                    <input matInput>
+                    <input matInput formControlName="nombre">
                 </mat-form-field>
                 <br>
                 <mat-form-field>
                     <mat-label>Apellido</mat-label>
-                    <input matInput>
+                    <input matInput formControlName="apellido">
                 </mat-form-field>
                 <br>
                 <mat-form-field>
                     <mat-label>Cuil</mat-label>
-                    <input matInput>
+                    <input matInput formControlName="cuil">
                 </mat-form-field>
                 <br>
                 <mat-form-field>
                     <mat-label>Email</mat-label>
-                    <input matInput>
+                    <input matInput formControlName="email">
                 </mat-form-field>
                 <br>
                 <mat-form-field>
@@ -59,16 +50,16 @@
                 <br>
                 <mat-form-field appearance="fill">
                     <mat-label>Genero</mat-label>
-                    <mat-select disableRipple>
-                        <mat-option value="1">Masculino</mat-option>
-                        <mat-option value="2">Femenino</mat-option>
-                        <mat-option value="3">Otro...</mat-option>
+                    <mat-select disableRipple formControlName="genero">
+                        <mat-option value="masculino">Masculino</mat-option>
+                        <mat-option value="femenino">Femenino</mat-option>
+                        <mat-option value="otro">Otro...</mat-option>
                     </mat-select>
                 </mat-form-field>
                 <br>
                 <mat-form-field class="example-full-width" appearance="fill">
                     <mat-label>Fecha de Nacimiento</mat-label>
-                    <input matInput [matDatepicker]="picker">
+                    <input matInput formControlName="fechanacimiento" [matDatepicker]="picker">
                     <mat-datepicker-toggle matSuffix [for]="picker">
                         <mat-icon matDatepickerToggleIcon>keyboard_arrow_down</mat-icon>
                     </mat-datepicker-toggle>

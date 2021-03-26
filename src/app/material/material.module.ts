@@ -24,6 +24,7 @@ import { NgxMaterialTimepickerModule } from 'ngx-material-timepicker';
 
 
 
+
 @NgModule({
   declarations: [],
   imports: [
@@ -44,7 +45,7 @@ import { NgxMaterialTimepickerModule } from 'ngx-material-timepicker';
     MatTooltipModule,
     MatSidenavModule,
     MatListModule,
-    MatMenuModule
+    MatMenuModule,
 
   ],
   exports: [
@@ -64,7 +65,7 @@ import { NgxMaterialTimepickerModule } from 'ngx-material-timepicker';
     MatTooltipModule,
     MatSidenavModule,
     MatListModule,
-    MatMenuModule
+    MatMenuModule,
 
   ]
 })

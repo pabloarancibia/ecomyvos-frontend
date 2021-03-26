@@ -15,6 +15,9 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthGuard } from "./guards/auth.guard";
 import { TokenInterceptorService } from './services/token-interceptor.service';
 import { JwtModule } from "@auth0/angular-jwt";
+import { HttpErrorInterceptor } from './services/http-error-interceptor.service';
+import { ErrorDialogComponent } from './errors/component/errordialog/errordialog.component';
+import { ErrorDialogService } from './services/error-dialog.service';
 
 
 
@@ -23,7 +26,8 @@ import { JwtModule } from "@auth0/angular-jwt";
 @NgModule({
   declarations: [
     AppComponent,
-    LayoutComponent
+    LayoutComponent,
+    ErrorDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -51,8 +55,14 @@ import { JwtModule } from "@auth0/angular-jwt";
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptorService,
       multi: true
-    }
+    },
+    {provide: HTTP_INTERCEPTORS, 
+      useClass: HttpErrorInterceptor, 
+      multi: true 
+    },
+    ErrorDialogService
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [ErrorDialogComponent],
 })
 export class AppModule { }

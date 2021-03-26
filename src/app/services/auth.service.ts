@@ -19,6 +19,7 @@ export class AuthService {
   usuario: any;
   tokenSubscription = new Subscription()
   timeout;
+  
 
   constructor(
     private http: HttpClient,
@@ -27,7 +28,10 @@ export class AuthService {
   ) { }
 
   signUp(usuario) {
-    return this.http.post<any>(this.URL + 'signup', usuario)
+    return this.http.post<any>(this.URL + 'registroalumno', 
+    usuario
+    )
+    
   }
 
   signIn(usuario) {
@@ -44,19 +48,6 @@ export class AuthService {
     return localStorage.getItem('token');
   }
 
-  //logout
-  // logout() {
-  //   localStorage.removeItem('token');
-  //   this.router.navigate(['/inicio'])
-  // }
-
-  // authenticateUser(user: Object): Observable<any> {
-  //   return this.http.post(CONFIG.authLogin, user, {
-  //     headers: new HttpHeaders({
-  //       "Content-Type": "application/json"
-  //     })
-  //   });
-  // }
 
   storeUserData(token, usuario) {
     this.timeout = this.jwtHelper.getTokenExpirationDate(token).valueOf() - new Date().valueOf();

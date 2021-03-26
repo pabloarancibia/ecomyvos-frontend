@@ -1,6 +1,6 @@
 <div class="login-form-flex">
     <!-- <form [formGroup]="form" (ngSubmit)="login($event)"> -->
-    <form (submit)='signIn()'>
+    <form [formGroup]="form" (ngSubmit)='signIn()'>
         <mat-card>
             <mat-card-header>
                 <mat-card-title>Ingresar</mat-card-title>
@@ -9,16 +9,19 @@
                 <div class="row">
                     <div class="col-xs">
                         <mat-form-field>
-                            <input [(ngModel)]="usuario.nombreusuario" name="nombreusuario" placeholder="usuario"
+                            <input formControlName = "nombreusuario" name="nombreusuario" placeholder="Usuario"
                                 matInput type="text">
+                                <mat-error *ngIf="form.get('nombreusuario').errors?.required">nombre de usuario es requerido</mat-error>
                         </mat-form-field>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-xs">
                         <mat-form-field>
-                            <input [(ngModel)]="usuario.password" name="password" placeholder="contraseña" matInput
+                            <input formControlName = "password" name="password" placeholder="Contraseña" matInput
                                 type="password">
+                                <mat-error *ngIf="form.get('password').errors?.required">contraseña es requerida</mat-error>
+
                         </mat-form-field>
                     </div>
                 </div>
@@ -29,5 +32,8 @@
                 <a routerLink="/auth/registrar">Registrarse</a>
             </mat-card-actions>
         </mat-card>
+        <p> {{errorMessage}}</p>
     </form>
+   
+
 </div>
