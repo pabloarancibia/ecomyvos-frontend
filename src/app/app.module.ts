@@ -13,9 +13,9 @@ import { MaterialModule } from './material/material.module';
 
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthGuard } from "./guards/auth.guard";
-import { TokenInterceptorService } from './services/token-interceptor.service';
+import { TokenInterceptorService } from './services/interceptors/token-interceptor.service';
 import { JwtModule } from "@auth0/angular-jwt";
-import { HttpErrorInterceptor } from './services/http-error-interceptor.service';
+import { HttpErrorInterceptor } from './services/interceptors/http-error-interceptor.service';
 import { ErrorDialogComponent } from './errors/component/errordialog/errordialog.component';
 import { ErrorDialogService } from './services/error-dialog.service';
 
