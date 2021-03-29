@@ -38,9 +38,12 @@ export class VercapacitacionComponent implements OnInit {
       
   }
 
-  modificarCapacitacion(id: number){
-    this.capacitacion.estado = 'eliminado';
-    this.capacitacionesService.modificarCapacitacion(id, this.capacitacion);
+  eliminarCapacitacion(id: number){
+    if(confirm("Está seguro que desea eliminar la capacitación "
+      +id+" (esta acción no se puede revertir) ")) {
+        this.capacitacion.estado = 'eliminado';
+        this.capacitacionesService.modificarCapacitacion(id, this.capacitacion);
+    } 
   }
 
 }

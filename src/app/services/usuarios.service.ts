@@ -25,6 +25,16 @@ export class UsuariosService {
         );
   }
 
+  asignarRol(data): Promise<Usuarios[]>{
+    return this._http.post(this.URL + 'asignarrol', data)
+    .toPromise()
+      .then(
+        (usuario: Usuarios[]) => {
+          return usuario;
+        }
+      )
+  }
+
   getUsPerRol(): Promise<any> {
     return this._http.get(this.URL + 'usperrol')
     .toPromise()
@@ -33,6 +43,13 @@ export class UsuariosService {
           return usPerRol;
           }
         );
+  }
+
+  modificarUsuario(changes: Partial<Usuarios>){
+    return this._http.put(this.URL + 'modificarusuario/',changes).toPromise()
+    .then(result =>{
+      return result;
+    });
   }
 
 

@@ -10,7 +10,6 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AsignacionesComponent } from './component/asignaciones/asignaciones.component';
 import { MapaformularioComponent } from './component/mapaformulario/mapaformulario.component';
 import { MapadetalleComponent } from './component/mapadetalle/mapadetalle.component';
-import { EditarcapacitacionComponent } from './component/editarcapacitacion/editarcapacitacion.component';
 
 
 @NgModule({
@@ -21,7 +20,6 @@ import { EditarcapacitacionComponent } from './component/editarcapacitacion/edit
     AsignacionesComponent,
     MapaformularioComponent,
     MapadetalleComponent,
-    EditarcapacitacionComponent
   ],
   imports: [
     CommonModule,

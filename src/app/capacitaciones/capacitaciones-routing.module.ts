@@ -6,7 +6,6 @@ import { CapacitacionesComponent } from './component/capacitaciones/capacitacion
 import { VercapacitacionComponent } from './component/vercapacitacion/vercapacitacion.component';
 
 import { AuthGuard } from "./../guards/auth.guard";
-import { EditarcapacitacionComponent } from './component/editarcapacitacion/editarcapacitacion.component';
 
 const routes: Routes = [
     {
