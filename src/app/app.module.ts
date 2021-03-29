@@ -1,3 +1,4 @@
+import { CommonModule } from '@angular/common';  
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
@@ -31,6 +32,7 @@ import { ErrorDialogService } from './services/error-dialog.service';
   ],
   imports: [
     BrowserModule,
+    CommonModule,
     AppRoutingModule,
     InicioModule,
     BrowserAnimationsModule,

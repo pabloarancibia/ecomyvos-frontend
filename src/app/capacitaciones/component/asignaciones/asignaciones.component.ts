@@ -1,17 +1,16 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
+import { ActivatedRoute } from '@angular/router';
 
-export interface PeriodicElement {
-  nombre: string;
-  position: number;
-  organizacion: string;
-  ubicacion: string;
-  fecha: string;
-}
 
-const ELEMENT_DATA: PeriodicElement[] = [
-  { position: 1, nombre: 'Computación Básica', organizacion: 'Fundación Crecer', ubicacion: 'B° Provincias Unidas - Mz5 Pc66', fecha: '15/02/2021' },
-];
+import { Capacitaciones } from "../../../models/capacitaciones.model";
+import { CapacitacionesService } from "../../../services/capacitaciones.service";
+
+import { UsuariosService } from '../../../services/usuarios.service';
+
+// import { Personas } from "../../../models/personas.model";
+// import { PersonasService } from "../../../services/personas.service";
+
 
 /**
  * @title Asignacion de Instructores y Alumnos
@@ -23,21 +22,65 @@ const ELEMENT_DATA: PeriodicElement[] = [
 })
 export class AsignacionesComponent implements OnInit {
 
-  constructor() { }
-
-  displayedColumns: string[] = ['position', 'nombre', 'organizacion', 'ubicacion', 'fecha'];
+  public capacitacion: Capacitaciones;
+  // public personas: Personas[];
+  // ELEMENT_DATA: Personas[] = null;
   displayedColumnsInst: string[] = ['position', 'nombre', 'apellido', 'cuil', 'email', 'accion'];
   displayedColumnsAlu: string[] = ['position', 'nombre', 'apellido', 'cuil', 'email', 'accion'];
+  dataSource = new MatTableDataSource;
+  dsInstructores = new MatTableDataSource;
 
-  dataSource = new MatTableDataSource(ELEMENT_DATA);
+  constructor(
+    private capacitacionesService: CapacitacionesService,
+    // private personasService: PersonasService,
+    private activeRoute: ActivatedRoute,
+    private changeDetectorRef: ChangeDetectorRef,
+    private usuariosService: UsuariosService,
 
-  // tslint:disable-next-line: typedef
-  applyFilter(event: Event) {
+
+  ) { }
+
+
+  applyFilterInst(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+  }
+  applyFilterAl(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
   ngOnInit(): void {
+    this.getCapacitacion(); 
+    this.getDatos();
+  }
+
+  public async getCapacitacion() {
+    const id = this.activeRoute.snapshot.paramMap.get('id');
+    console.log(id);
+    try {
+      await this.capacitacionesService.getCapacitacion(id)
+        .then(report => {
+          this.capacitacion = report,
+          
+          console.log(this.capacitacion);
+          });
+          
+    } catch (error) {
+        // console.log(error);
+    }
+  }
+
+  public getDatos() {
+    this.usuariosService.getUsPerRol()
+      //.then(report => this.dataSource.data = report as Usuarios[]);
+      .then(report => 
+        {
+          this.dsInstructores.data = report,
+          this.changeDetectorRef.detectChanges();
+        }
+        );
+
   }
 
 }

@@ -22,7 +22,7 @@ const routes: Routes = [
         component: VercapacitacionComponent
     },
     {
-        path: 'asignar',
+        path: 'asignar/:id',
         component: AsignacionesComponent
     },
     {
