@@ -22,7 +22,10 @@ import { UsuariosService } from '../../../services/usuarios.service';
 })
 export class AsignacionesComponent implements OnInit {
 
-  
+  data = {
+    usuarioId: 0,
+    capacitacionId: 0
+  }
 
   public capacitacion: Capacitaciones;
   // public personas: Personas[];
@@ -69,6 +72,7 @@ export class AsignacionesComponent implements OnInit {
       .then(report => 
         {
           this.dsInstructores.data = report as any[]
+          // this.changeDetectorRef.detectChanges();
           console.log(this.dsInstructores.data);
 
         }
@@ -78,28 +82,45 @@ export class AsignacionesComponent implements OnInit {
       .then(report => 
         {
           this.dsAlumnos.data = report as any[]
+          // this.changeDetectorRef.detectChanges();
           console.log(this.dsAlumnos.data);
 
         }
         );  
     
 
-    // this.changeDetectorRef.detectChanges();
+    this.changeDetectorRef.detectChanges();
 
   }
 
-  asignarInstructor(personaId: number){
-    console.log(personaId)
+  /**
+   * Asignar capacitacion a usuario
+   * @param usuarioId 
+   */
+  asignarCapacitacion(usuarioId: number){
+    this.data.capacitacionId = this.capacitacion.id;
+    this.data.usuarioId = usuarioId;
+
+    this.usuariosService.asignarCapacitacion(this.data)
+    .then(res=>{
+      this.cargaDs()
+    });
   }
-  quitarInstructor(personaId: number){
-    console.log(personaId)
+
+  /**
+   * Quitar capacitacion a usuario
+   * @param usuarioId 
+   */
+  quitarCapacitacion(usuarioId: number){
+    this.data.capacitacionId = this.capacitacion.id;
+    this.data.usuarioId = usuarioId;
+
+    this.usuariosService.quitarCapAUs(this.data)
+    .then(res=>{
+      this.cargaDs()
+    });
   }
-  asignarAlumno(personaId: number){
-    console.log(personaId)
-  }
-  quitarAlumno(personaId: number){
-    console.log(personaId)
-  }
+
 
   applyFilterInst(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;

@@ -72,6 +72,35 @@ export class UsuariosService {
     });
   }
 
+  /**
+   * Servicio asignar cap a us
+   * @param data usuarioId, capacitacionId
+   * @returns message
+   */
+  asignarCapacitacion(data): Promise<any>{
+    return this._http.post(this.URL + 'asignarcapacitacion', data)
+    .toPromise()
+      .then(
+        (res) => {
+          return res;
+        }
+      )
+  }
+
+  /**
+   * Servicio quitar asignacion cap a us
+   * @param data usuarioId, capacitacionId
+   * @returns message
+   */
+  quitarCapAUs(data): Promise<any>{
+    return this._http.post(this.URL + 'quitarcapaus', data)
+    .toPromise()
+      .then(
+        (res) => {
+          return res;
+        }
+      )
+  }
 
 
 }
