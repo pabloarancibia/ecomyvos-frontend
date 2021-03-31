@@ -3,7 +3,7 @@
 <div *ngIf="capacitacion" >
     <h1>{{capacitacion.nombre | uppercase}}</h1>
     <h2>
-        {{capacitacion.convenio}} |
+        {{capacitacion.convenio | uppercase}} |
         {{capacitacion.direccion}} |
         {{capacitacion.fechainicio | date: 'dd/MM/yyyy'}} a
         {{capacitacion.fechafin | date: 'dd/MM/yyyy'}} |
@@ -23,8 +23,8 @@
         
             <!-- Position Column -->
             <ng-container matColumnDef="position">
-                <th mat-header-cell *matHeaderCellDef> No. </th>
-                <td mat-cell *matCellDef="let element"> {{element.position}} </td>
+                <th mat-header-cell *matHeaderCellDef> Id. </th>
+                <td mat-cell *matCellDef="let element"> {{element.id}} </td>
             </ng-container>
 
             <!-- Nombre Column -->
@@ -51,22 +51,41 @@
                 <td mat-cell *matCellDef="let element"> {{element.Persona.email}} </td>
             </ng-container>
 
+
             <!-- Accion Column -->
             <ng-container matColumnDef="accion">
                 <th mat-header-cell *matHeaderCellDef> Accion </th>
                 <td mat-cell *matCellDef="let element">
-                    <!-- <div *ngIf="element.Persona.id == element.PersonaCapacitacion.PersonaId && Capacitacion.id = element.PersonaCapacitacion.CapacitacionId; else noInstructor"> -->
-                        <button  mat-mini-fab color="primary" matTooltip="Asignar como Instructor" aria-label="añadir">
-                            <mat-icon>person_add</mat-icon>
-                        </button>
-                    <!-- </div> -->
-
-                    <!-- <ng-template #noInstructor> -->
-                        <button mat-mini-fab color="warn" matTooltip="Quitar como Instructor" aria-label="quitar">
-                            <mat-icon>clear</mat-icon>
-                        </button>
-                    <!-- </ng-template> -->
-                    
+                <div *ngIf="element.Persona.Capacitacions.length != 0; else noCaps"> 
+                    <div *ngFor= "let cap of element.Persona.Capacitacions" >
+                        <div *ngIf="cap.id != capacitacion.id; else noInstructor">
+                                
+                                    <button  mat-mini-fab color="primary" 
+                                        matTooltip="Asignar como Instructor" 
+                                        aria-label="añadir"
+                                        (click)="asignarInstructor(element.Persona.id)">
+                                        <mat-icon>person_add</mat-icon>
+                                    </button>
+                        </div>
+                        <ng-template #noInstructor>      
+                                    <button 
+                                    mat-mini-fab 
+                                    color="warn" m
+                                    atTooltip="Quitar como Instructor" 
+                                    aria-label="quitar"
+                                    (click)="quitarInstructor(element.Persona.id)">
+                                        <mat-icon>clear</mat-icon>
+                                    </button>
+                        </ng-template>  
+                    </div>
+                </div>
+                <ng-template #noCaps> 
+                    <button  mat-mini-fab color="primary" 
+                    matTooltip="Asignar como Instructor" aria-label="añadir"
+                    (click)="asignarInstructor(element.Persona.id)">
+                        <mat-icon>person_add</mat-icon>
+                    </button>
+                </ng-template>      
                 </td>
             </ng-container>
 
@@ -89,48 +108,68 @@
         <input matInput (keyup)="applyFilterAl($event)" placeholder="Ej. Lopez" #input>
     </mat-form-field>
 
-    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+    <table mat-table [dataSource]="dsAlumnos" class="mat-elevation-z8">
 
         <!-- Position Column -->
         <ng-container matColumnDef="position">
-            <th mat-header-cell *matHeaderCellDef> No. </th>
-            <td mat-cell *matCellDef="let element"> {{element.position}} </td>
+            <th mat-header-cell *matHeaderCellDef> Id. </th>
+            <td mat-cell *matCellDef="let element"> {{element.id}} </td>
         </ng-container>
 
         <!-- Nombre Column -->
         <ng-container matColumnDef="nombre">
             <th mat-header-cell *matHeaderCellDef> Nombre </th>
-            <td mat-cell *matCellDef="let element"> Pedro </td>
+            <td mat-cell *matCellDef="let element"> {{element.Persona.nombre}} </td>
         </ng-container>
+
 
         <!-- apellido Column -->
         <ng-container matColumnDef="apellido">
             <th mat-header-cell *matHeaderCellDef> Apellido </th>
-            <td mat-cell *matCellDef="let element"> Perez </td>
+            <td mat-cell *matCellDef="let element"> {{element.Persona.apellido}} </td>
         </ng-container>
 
         <!-- cuil Column -->
         <ng-container matColumnDef="cuil">
             <th mat-header-cell *matHeaderCellDef> Cuil </th>
-            <td mat-cell *matCellDef="let element"> 12-12123123-12 </td>
+            <td mat-cell *matCellDef="let element"> {{element.Persona.cuil}} </td>
         </ng-container>
 
         <!-- email Column -->
         <ng-container matColumnDef="email">
             <th mat-header-cell *matHeaderCellDef> Email </th>
-            <td mat-cell *matCellDef="let element"> email-alumno@email.com </td>
+            <td mat-cell *matCellDef="let element"> {{element.Persona.email}}</td>
         </ng-container>
 
         <!-- Accion Column -->
         <ng-container matColumnDef="accion">
             <th mat-header-cell *matHeaderCellDef> Accion </th>
             <td mat-cell *matCellDef="let element">
-                <button mat-mini-fab color="primary" matTooltip="Asignar como Alumno" aria-label="añadir">
-                    <mat-icon>person_add</mat-icon>
-                </button>
-                <button mat-mini-fab color="warn" matTooltip="Quitar Alumno" aria-label="quitar">
-                    <mat-icon>clear</mat-icon>
-                </button>
+                <div *ngIf="element.Persona.Capacitacions.length != 0; else noCapsAl">
+                    <div *ngFor= "let cap of element.Persona.Capacitacions" >
+                        <div *ngIf="cap.id != capacitacion.id; else noAlumno">
+                            <button mat-mini-fab color="primary" 
+                            matTooltip="Asignar como Alumno" aria-label="añadir"
+                            (click)="asignarAlumno(element.Persona.id)">
+                                <mat-icon>person_add</mat-icon>
+                            </button>
+                        </div>    
+                        <ng-template #noAlumno> 
+                            <button mat-mini-fab color="warn" 
+                            matTooltip="Quitar Alumno" aria-label="quitar"
+                            (click)="quitarAlumno(element.Persona.id)">
+                                <mat-icon>clear</mat-icon>
+                            </button>
+                        </ng-template>
+                    </div>
+                </div>
+                <ng-template #noCapsAl> 
+                    <button mat-mini-fab color="primary" 
+                    matTooltip="Asignar como Alumno" aria-label="añadir"
+                    (click)="asignarAlumno(element.Persona.id)">
+                        <mat-icon>person_add</mat-icon>
+                    </button>
+                </ng-template>   
             </td>
         </ng-container>
 

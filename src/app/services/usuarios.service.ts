@@ -45,6 +45,26 @@ export class UsuariosService {
         );
   }
 
+  getUsPerRolCap(): Promise<any> {
+    return this._http.get(this.URL + 'usperrolcap')
+    .toPromise()
+      .then(
+        (usPerRolCap) => {
+          return usPerRolCap;
+          }
+        );
+  }
+
+  getUsPerCapByRol(rol:string){
+    return this._http.get(this.URL + 'uspercapbyrol/'+rol)
+    .toPromise()
+      .then(
+        (usPerCap) => {
+          return usPerCap;
+          }
+        );
+  }
+
   modificarUsuario(changes: Partial<Usuarios>){
     return this._http.put(this.URL + 'modificarusuario/',changes).toPromise()
     .then(result =>{

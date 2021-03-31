@@ -22,13 +22,16 @@ import { UsuariosService } from '../../../services/usuarios.service';
 })
 export class AsignacionesComponent implements OnInit {
 
+  
+
   public capacitacion: Capacitaciones;
   // public personas: Personas[];
   // ELEMENT_DATA: Personas[] = null;
   displayedColumnsInst: string[] = ['position', 'nombre', 'apellido', 'cuil', 'email', 'accion'];
   displayedColumnsAlu: string[] = ['position', 'nombre', 'apellido', 'cuil', 'email', 'accion'];
-  dataSource = new MatTableDataSource;
   dsInstructores = new MatTableDataSource;
+  dsAlumnos = new MatTableDataSource;
+
 
   constructor(
     private capacitacionesService: CapacitacionesService,
@@ -40,19 +43,9 @@ export class AsignacionesComponent implements OnInit {
 
   ) { }
 
-
-  applyFilterInst(event: Event) {
-    const filterValue = (event.target as HTMLInputElement).value;
-    this.dataSource.filter = filterValue.trim().toLowerCase();
-  }
-  applyFilterAl(event: Event) {
-    const filterValue = (event.target as HTMLInputElement).value;
-    this.dataSource.filter = filterValue.trim().toLowerCase();
-  }
-
   ngOnInit(): void {
     this.getCapacitacion(); 
-    this.getDatos();
+    this.cargaDs();
   }
 
   public async getCapacitacion() {
@@ -71,16 +64,50 @@ export class AsignacionesComponent implements OnInit {
     }
   }
 
-  public getDatos() {
-    this.usuariosService.getUsPerRol()
-      //.then(report => this.dataSource.data = report as Usuarios[]);
+  public async cargaDs(){
+    this.usuariosService.getUsPerCapByRol('instructor')
       .then(report => 
         {
-          this.dsInstructores.data = report,
-          this.changeDetectorRef.detectChanges();
+          this.dsInstructores.data = report as any[]
+          console.log(this.dsInstructores.data);
+
         }
         );
 
+    this.usuariosService.getUsPerCapByRol('alumno')
+      .then(report => 
+        {
+          this.dsAlumnos.data = report as any[]
+          console.log(this.dsAlumnos.data);
+
+        }
+        );  
+    
+
+    // this.changeDetectorRef.detectChanges();
+
+  }
+
+  asignarInstructor(personaId: number){
+    console.log(personaId)
+  }
+  quitarInstructor(personaId: number){
+    console.log(personaId)
+  }
+  asignarAlumno(personaId: number){
+    console.log(personaId)
+  }
+  quitarAlumno(personaId: number){
+    console.log(personaId)
+  }
+
+  applyFilterInst(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dsInstructores.filter = filterValue.trim().toLowerCase();
+  }
+  applyFilterAl(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dsAlumnos.filter = filterValue.trim().toLowerCase();
   }
 
 }
