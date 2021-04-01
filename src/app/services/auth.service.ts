@@ -40,12 +40,32 @@ export class AuthService {
 
   // Verificar si tiene token
   loggedIn() {
-    return !!localStorage.getItem('token');
+    // return !!localStorage.getItem('token');
+    return !!this.TokenVerify();
   }
 
-  // retornar tokem
+  // retornar token
   getToken() {
-    return localStorage.getItem('token');
+    // return localStorage.getItem('token');
+    return this.TokenVerify();
+  }
+
+  /**
+   * Verifica Token
+   * @returns True: Token ok
+   * False: Token false o expired
+   */
+   TokenVerify(){
+    const token = localStorage.getItem('token');
+    if (token){
+      const timeout = this.jwtHelper.getTokenExpirationDate(token).valueOf() - new Date().valueOf();
+      if (timeout < 0){
+        this.logout();
+      }
+      return token;
+    }
+    return false;
+    
   }
 
 

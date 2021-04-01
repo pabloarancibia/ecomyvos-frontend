@@ -7,13 +7,23 @@
         <a mat-button routerLink="/inicio">Inicio</a>
         <!-- Adm -->
 
-        <a mat-button routerLink="/capacitaciones">Capacitaciones</a>
-        <a mat-button routerLink="/instructores">Instructores</a>
+        <a *ngIf="authService.loggedIn()" mat-button routerLink="/capacitaciones">Capacitaciones</a>
+        <!-- <a mat-button routerLink="/instructores">Instructores</a>
         <a mat-button routerLink="/alumnos">Alumnos</a>
         <a mat-button routerLink="/multiplicadores">Multiplicadores</a>
-        <a mat-button routerLink="/certificados">Certificados</a>
+        <a mat-button routerLink="/certificados">Certificados</a> -->
         <!-- Alumnos -->
-        <a mat-button routerLink="/asistencias/alumnos">Asistencia</a>
+        <a *ngIf="authService.loggedIn()" mat-button routerLink="/asistencias/alumnos">Asistencia</a>
+        
+        <!-- Administración -->
+        <button 
+          *ngIf="authService.loggedIn()" 
+          mat-button [matMenuTriggerFor]="menu">
+            Administración
+        </button>
+          <mat-menu #menu="matMenu"> 
+            <button mat-menu-item routerLink="/admin/usuarios">Administrar Usuarios</button>
+          </mat-menu>
 
         <!-- usuario -->
         <ng-container *ngIf="!authService.loggedIn(); else loggedIn">
@@ -25,8 +35,8 @@
       </nav>
     </div>
     <div class="menu">
-      <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
-        <mat-icon>Menu</mat-icon>
+      <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="">
+        <mat-icon>menu</mat-icon>
       </button>
       <mat-menu #menu="matMenu">
         <button mat-menu-item>

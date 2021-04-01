@@ -21,7 +21,7 @@ export class HttpErrorInterceptor implements HttpInterceptor {
   intercept(req: HttpRequest<any>, next: HttpHandler) {
     return next.handle(req).pipe(
       catchError(error => {
-        this.TokenExpiredVerify();
+        this.authService.TokenVerify();
         let errorMessage = '';
         if (error instanceof ErrorEvent) {
           // client-side error
@@ -41,14 +41,5 @@ export class HttpErrorInterceptor implements HttpInterceptor {
     );
   }
 
-  TokenExpiredVerify(){
-    const token = this.authService.getToken();
-    if (token){
-      const timeout = this.jwtHelper.getTokenExpirationDate(token).valueOf() - new Date().valueOf();
-      if (timeout < 0){
-        this.authService.logout();
-      }
-    }
-    
-  }
+  
 }

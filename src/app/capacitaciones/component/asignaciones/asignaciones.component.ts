@@ -30,10 +30,14 @@ export class AsignacionesComponent implements OnInit {
   public capacitacion: Capacitaciones;
   // public personas: Personas[];
   // ELEMENT_DATA: Personas[] = null;
-  displayedColumnsInst: string[] = ['position', 'nombre', 'apellido', 'cuil', 'email', 'accion'];
-  displayedColumnsAlu: string[] = ['position', 'nombre', 'apellido', 'cuil', 'email', 'accion'];
+  displayedColumnsInst: string[] = ['position', 'nombreusuario', 'nombre', 'apellido', 'cuil', 'email', 'accion'];
+  displayedColumnsAlu: string[] = ['position', 'nombreusuario', 'nombre', 'apellido', 'cuil', 'email', 'accion'];
+  displayedColumnsMulti: string[] = ['position', 'nombreusuario', 'nombre', 'apellido', 'cuil', 'email', 'accion'];
+  
   dsInstructores = new MatTableDataSource;
   dsAlumnos = new MatTableDataSource;
+  dsMultiplicadores = new MatTableDataSource;
+
 
 
   constructor(
@@ -72,8 +76,6 @@ export class AsignacionesComponent implements OnInit {
       .then(report => 
         {
           this.dsInstructores.data = report as any[]
-          // this.changeDetectorRef.detectChanges();
-          console.log(this.dsInstructores.data);
 
         }
         );
@@ -82,8 +84,15 @@ export class AsignacionesComponent implements OnInit {
       .then(report => 
         {
           this.dsAlumnos.data = report as any[]
-          // this.changeDetectorRef.detectChanges();
-          console.log(this.dsAlumnos.data);
+
+        }
+        );
+
+    this.usuariosService.getUsPerCapByRol('multiplicador')
+      .then(report => 
+        {
+          this.dsMultiplicadores.data = report as any[]
+          console.log(this.dsMultiplicadores.data);
 
         }
         );  
