@@ -3,6 +3,8 @@ import { ActivatedRoute } from '@angular/router';
 
 import { Capacitaciones } from '../../../models/capacitaciones.model';
 import { CapacitacionesService } from '../../../services/capacitaciones.service';
+import { AuthService } from '../../../services/auth.service';
+
 
 @Component({
   selector: 'app-vercapacitacion',
@@ -15,7 +17,8 @@ export class VercapacitacionComponent implements OnInit {
 
   constructor(
     private capacitacionesService: CapacitacionesService,
-    private activeRoute: ActivatedRoute
+    private activeRoute: ActivatedRoute,
+    private authService: AuthService
   ) { 
   }
 

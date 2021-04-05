@@ -28,8 +28,7 @@ export class AsignacionesComponent implements OnInit {
   }
 
   public capacitacion: Capacitaciones;
-  // public personas: Personas[];
-  // ELEMENT_DATA: Personas[] = null;
+
   displayedColumnsInst: string[] = ['position', 'nombreusuario', 'nombre', 'apellido', 'cuil', 'email', 'accion'];
   displayedColumnsAlu: string[] = ['position', 'nombreusuario', 'nombre', 'apellido', 'cuil', 'email', 'accion'];
   displayedColumnsMulti: string[] = ['position', 'nombreusuario', 'nombre', 'apellido', 'cuil', 'email', 'accion'];
@@ -42,7 +41,6 @@ export class AsignacionesComponent implements OnInit {
 
   constructor(
     private capacitacionesService: CapacitacionesService,
-    // private personasService: PersonasService,
     private activeRoute: ActivatedRoute,
     private changeDetectorRef: ChangeDetectorRef,
     private usuariosService: UsuariosService,

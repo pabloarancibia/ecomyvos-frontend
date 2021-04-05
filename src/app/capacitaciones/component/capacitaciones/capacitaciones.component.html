@@ -1,5 +1,5 @@
 <div class="content">
-    <div class="agregar">
+    <div *ngIf="authService.getRolLS()==='admin' || authService.getRolLS()==='instructor'"  class="agregar">
         <button mat-raised-button routerLink="/capacitaciones/agregar" color="primary">Agregar
             Capaticación</button>
     </div>
@@ -45,21 +45,66 @@
 
         <!-- Accion Column -->
         <ng-container matColumnDef="accion">
-            <th mat-header-cell *matHeaderCellDef> Accion </th>
-            <td mat-cell *matCellDef="let element">
-                <button mat-mini-fab color="primary" routerLink="/asistencias/ver/{{element.id}}" matTooltip="Asistencias"
-                    aria-label="Asistencias">
-                    <mat-icon>list_alt</mat-icon>
-                </button>
-                <button mat-mini-fab color="primary" routerLink="/capacitaciones/ver/{{element.id}}"
-                    matTooltip="Ver detalles del curso" aria-label="detalles">
-                    <mat-icon>read_more</mat-icon>
-                </button>
-                <button mat-mini-fab color="accent" routerLink="/capacitaciones/asignar/{{element.id}}"
-                    matTooltip="Asignar Instructores y Alumnos" aria-label="Asignar">
-                    <mat-icon>person_add</mat-icon>
-                </button>
-            </td>
+            <div *ngIf="authService.getRolLS()==='admin' || authService.getRolLS()==='instructor'"> 
+                <th mat-header-cell *matHeaderCellDef> Accion </th>
+                <td mat-cell *matCellDef="let element">
+                    <button mat-mini-fab color="primary" routerLink="/asistencias/ver/{{element.id}}" matTooltip="Asistencias"
+                        aria-label="Asistencias">
+                        <mat-icon>list_alt</mat-icon>
+                    </button>
+                    <button mat-mini-fab color="primary" routerLink="/capacitaciones/ver/{{element.id}}"
+                        matTooltip="Ver detalles del curso" aria-label="detalles">
+                        <mat-icon>read_more</mat-icon>
+                    </button>
+                    <button mat-mini-fab color="accent" routerLink="/capacitaciones/asignar/{{element.id}}"
+                        matTooltip="Asignar Instructores y Alumnos" aria-label="Asignar">
+                        <mat-icon>person_add</mat-icon>
+                    </button>
+                </td>
+
+            </div>
+            <div *ngIf="authService.getRolLS()==='alumno'"> 
+                <th mat-header-cell *matHeaderCellDef> Inscribirse </th>
+                <td mat-cell *matCellDef="let element">
+                    
+                    <button mat-mini-fab color="primary" routerLink="/capacitaciones/ver/{{element.id}}"
+                        matTooltip="Ver detalles del curso" aria-label="detalles">
+                        <mat-icon>read_more</mat-icon>
+                    </button>
+                    
+                    <div *ngIf="capacitacionesUsuario!= 0; else noCaps">
+                        <div *ngFor="let cap of capacitacionesUsuario">
+                            <div *ngIf="cap.id != element.id; else noAlumno">
+                                <button mat-mini-fab color="accent" (click)="Inscribirse(element.id)"
+                                matTooltip="Inscribirse" aria-label="Inscribirse">
+                                    <mat-icon>person_add</mat-icon>
+                                </button>
+                            </div>
+                            <ng-template #noAlumno>
+                                <div>
+                                    <button mat-mini-fab color="warn" 
+                                        matTooltip="Quitar Inscripcion" aria-label="quitar"
+                                        (click)="quitarInscripcion(element.id)">
+                                        <mat-icon>clear</mat-icon>
+                                    </button>
+                                </div> 
+                            </ng-template>
+                        </div>
+                    </div>
+                    <ng-template #noCaps>
+                        <div>
+                            <button mat-mini-fab color="accent" (click)="Inscribirse(element.id)"
+                                matTooltip="Inscribirse" aria-label="Inscribirse">
+                                    <mat-icon>person_add</mat-icon>
+                            </button>
+                        </div> 
+                    </ng-template>
+                    
+                    
+                </td>
+            </div>
+            
+            
         </ng-container>
 
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>

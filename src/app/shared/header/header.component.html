@@ -17,7 +17,7 @@
         
         <!-- Administración -->
         <button 
-          *ngIf="authService.loggedIn()" 
+          *ngIf="authService.loggedIn() && authService.getRolLS()==='admin'" 
           mat-button [matMenuTriggerFor]="menu">
             Administración
         </button>

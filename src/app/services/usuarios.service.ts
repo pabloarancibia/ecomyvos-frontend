@@ -35,6 +35,10 @@ export class UsuariosService {
       )
   }
 
+  /**
+   * Obtener usuarios y relaciones persona y rol
+   * @returns Usuarios Personas Rol
+   */
   getUsPerRol(): Promise<any> {
     return this._http.get(this.URL + 'usperrol')
     .toPromise()
@@ -45,6 +49,10 @@ export class UsuariosService {
         );
   }
 
+/**
+ * Obtener todos los usuarios y sus relaciones
+ * @returns usuarios personas roles capacitaciones
+ */
   getUsPerRolCap(): Promise<any> {
     return this._http.get(this.URL + 'usperrolcap')
     .toPromise()
@@ -55,6 +63,11 @@ export class UsuariosService {
         );
   }
 
+  /**
+   * Obtener usuarios y relaciones segun su rol
+   * @param rol nombrerol
+   * @returns usuario persona capacitacion
+   */
   getUsPerCapByRol(rol:string){
     return this._http.get(this.URL + 'uspercapbyrol/'+rol)
     .toPromise()
@@ -101,6 +114,43 @@ export class UsuariosService {
         }
       )
   }
+
+  /**
+   * Servicio inscripcion alumno registrado
+   * @param data capacitacionId
+   * @returns message
+   */
+   inscripcionAlumno(data): Promise<any>{
+    return this._http.post(this.URL + 'inscripcionalumno', data)
+    .toPromise()
+      .then(
+        (res) => {
+          return res;
+        }
+      )
+  }
+
+  /**
+   * Servicio desuscripcion alumno registrado
+   * @param data capacitacionId
+   * @returns message
+   */
+   quitarInscripcion(data): Promise<any>{
+    return this._http.post(this.URL + 'quitarinscripcion', data)
+    .toPromise()
+      .then(
+        (res) => {
+          return res;
+        }
+      )
+  }
+
+  getCapsUsRegistrado():Promise<any>{
+    return this._http.get(this.URL + 'traerCapacitacionesUsuario')
+    .toPromise()
+    .then(res=>{return res})
+  }
+
 
 
 }

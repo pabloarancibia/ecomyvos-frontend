@@ -102,8 +102,17 @@ export class AuthService {
 
   /**
    * Obtener el rol segun ususarioId
+   * 
    */
-  getRol(){
+  getRol(data){
+    return this.http.get(this.URL + 'getrol',data);
+  }
+
+  /**
+   * Obtener rol de local storage
+   * @returns nombre rol 
+   */
+  getRolLS(){
     this.roleAs = localStorage.getItem('rol');
     return this.roleAs;
   }

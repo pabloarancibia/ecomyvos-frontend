@@ -1,7 +1,7 @@
 <div class="content">
 <div *ngIf="this.capacitacion">
 
-    <div class="editar">
+    <div *ngIf="authService.getRolLS()==='admin' || authService.getRolLS()==='instructor'" class="editar">
         <button mat-raised-button [routerLink]="['/capacitaciones/editar/', capacitacion.id]" color="primary">Editar
             Capaticación</button>
     </div>
@@ -38,7 +38,7 @@
     </app-mapadetalle>
 </div>
 </div>
-<div class="eliminar">
+<div *ngIf="authService.getRolLS()==='admin'" class="eliminar">
     <button mat-raised-button color="warn" (click)="eliminarCapacitacion(this.capacitacion.id)"> Eliminar</button>
 </div>
 </div>
