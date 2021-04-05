@@ -11,23 +11,42 @@ const routes: Routes = [
     {
         path: '',
         component: CapacitacionesComponent,
-        canActivate: [AuthGuard]
+        canActivate: [AuthGuard],
+        data: {
+            role: ['admin','instructor','alumno']
+        }
     },
     {
         path: 'agregar',
-        component: AgregarcapacitacionComponent
+        component: AgregarcapacitacionComponent,
+        canActivate: [AuthGuard],
+        data: {
+            role: ['admin','instructor']
+        }
     },
     {
         path: 'ver/:id',
-        component: VercapacitacionComponent
+        component: VercapacitacionComponent,
+        canActivate: [AuthGuard],
+        data: {
+            role: ['admin','instructor','alumno']
+        }
     },
     {
         path: 'asignar/:id',
-        component: AsignacionesComponent
+        component: AsignacionesComponent,
+        canActivate: [AuthGuard],
+        data: {
+            role: ['admin','instructor']
+        }
     },
     {
         path: 'editar/:id',
-        component: AgregarcapacitacionComponent
+        component: AgregarcapacitacionComponent,
+        canActivate: [AuthGuard],
+        data: {
+            role: ['admin','instructor']
+        }
     },
 ];
 

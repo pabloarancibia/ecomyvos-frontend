@@ -19,6 +19,8 @@ export class AuthService {
   usuario: any;
   tokenSubscription = new Subscription()
   timeout;
+
+  roleAs: string;
   
 
   constructor(
@@ -69,10 +71,11 @@ export class AuthService {
   }
 
 
-  storeUserData(token, usuario) {
+  async storeUserData (token, usuario) {
     this.timeout = this.jwtHelper.getTokenExpirationDate(token).valueOf() - new Date().valueOf();
     localStorage.setItem("token", token);
     localStorage.setItem("nombreusuario", JSON.stringify(usuario.nombreusuario))
+    localStorage.setItem("rol",usuario.Rol.nombrerol)
     this.authToken = token;
     this.usuario = usuario;
     // this.emit({ nombreusuario: this.usuario.nombreusuario });
@@ -95,6 +98,14 @@ export class AuthService {
     localStorage.clear();
     this.router.navigate(['/auth/login']);
 
+  }
+
+  /**
+   * Obtener el rol segun ususarioId
+   */
+  getRol(){
+    this.roleAs = localStorage.getItem('rol');
+    return this.roleAs;
   }
 
 }

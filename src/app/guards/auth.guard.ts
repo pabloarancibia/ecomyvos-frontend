@@ -23,13 +23,28 @@ export class AuthGuard implements CanActivate {
     private router: Router
   ) { }
 
-  canActivate(): boolean {
-    // verificamos si tiene token
+  canActivate(
+    next: ActivatedRouteSnapshot,
+    state: RouterStateSnapshot
+    ): boolean {
+
+      let url: string = state.url;
+      return this.checkUserLogin(next, url);
+  }
+
+  checkUserLogin(route: ActivatedRouteSnapshot, url: any): boolean {
+    // verificamos el token y rol
     if (this.authService.loggedIn()) {
+      const userRole = this.authService.getRol();
+      route: ActivatedRouteSnapshot
+      if (route.data.role && route.data.role.indexOf(userRole) === -1){
+        return false;
+      }
       return true;
     }
     //direccionamos a login
     this.router.navigate(['/auth/login']);
     return false;
   }
+  
 }
