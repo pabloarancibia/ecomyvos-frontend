@@ -22,7 +22,7 @@ export class CapacitacionesComponent implements OnInit {
   }
 
   capacitacionesUsuario: Capacitaciones[] = null;
-
+  
 
   constructor(
     private capacitacionesService: CapacitacionesService,
@@ -62,10 +62,12 @@ export class CapacitacionesComponent implements OnInit {
    * Traer capacitaciones usuario registrado
    */
   getCapsUsRegistrado(){
+
     this.usuariosService.getCapsUsRegistrado()
     .then(res=>
       {
          this.capacitacionesUsuario = res.Capacitaciones
+         
          console.log(res)
       }
       );

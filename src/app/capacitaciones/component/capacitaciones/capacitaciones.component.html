@@ -63,6 +63,7 @@
                 </td>
 
             </div>
+            <!-- SI ES ROL ALUMNO -->
             <div *ngIf="authService.getRolLS()==='alumno'"> 
                 <th mat-header-cell *matHeaderCellDef> Inscribirse </th>
                 <td mat-cell *matCellDef="let element">
@@ -71,16 +72,20 @@
                         matTooltip="Ver detalles del curso" aria-label="detalles">
                         <mat-icon>read_more</mat-icon>
                     </button>
-                    
+                    <!-- Verifico si tiene capacitaciones -->
                     <div *ngIf="capacitacionesUsuario!= 0; else noCaps">
+                        <!-- recorro las capacitaciones -->
                         <div *ngFor="let cap of capacitacionesUsuario">
-                            <div *ngIf="cap.id != element.id; else noAlumno">
+                            <!-- Verifico si esta en esta capacitacion -->
+                            
+                            <div *ngIf="cap.id == element.id">
+                                
                                 <button mat-mini-fab color="accent" (click)="Inscribirse(element.id)"
                                 matTooltip="Inscribirse" aria-label="Inscribirse">
                                     <mat-icon>person_add</mat-icon>
                                 </button>
                             </div>
-                            <ng-template #noAlumno>
+                            <!-- <ng-template #noAlumno>
                                 <div>
                                     <button mat-mini-fab color="warn" 
                                         matTooltip="Quitar Inscripcion" aria-label="quitar"
@@ -88,15 +93,15 @@
                                         <mat-icon>clear</mat-icon>
                                     </button>
                                 </div> 
-                            </ng-template>
+                            </ng-template> -->
                         </div>
                     </div>
                     <ng-template #noCaps>
                         <div>
-                            <button mat-mini-fab color="accent" (click)="Inscribirse(element.id)"
+                            <!-- <button mat-mini-fab color="accent" (click)="Inscribirse(element.id)"
                                 matTooltip="Inscribirse" aria-label="Inscribirse">
                                     <mat-icon>person_add</mat-icon>
-                            </button>
+                            </button> -->
                         </div> 
                     </ng-template>
                     

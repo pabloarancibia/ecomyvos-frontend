@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef} from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { ActivatedRoute } from '@angular/router';
 
@@ -22,6 +22,7 @@ import { UsuariosService } from '../../../services/usuarios.service';
 })
 export class AsignacionesComponent implements OnInit {
 
+  // usuario seleccionado y capacitacion actual
   data = {
     usuarioId: 0,
     capacitacionId: 0
@@ -50,7 +51,7 @@ export class AsignacionesComponent implements OnInit {
 
   ngOnInit(): void {
     this.getCapacitacion(); 
-    this.cargaDs();
+    
   }
 
   public async getCapacitacion() {
@@ -59,9 +60,11 @@ export class AsignacionesComponent implements OnInit {
     try {
       await this.capacitacionesService.getCapacitacion(id)
         .then(report => {
-          this.capacitacion = report,
-          
+          this.capacitacion = report,   
           console.log(this.capacitacion);
+
+          // CARGO LOS DATA SETS
+          this.cargaDs();
           });
           
     } catch (error) {
@@ -69,28 +72,40 @@ export class AsignacionesComponent implements OnInit {
     }
   }
 
+  /**
+   * Cargo los DataSets
+   */
   public async cargaDs(){
     this.usuariosService.getUsPerCapByRol('instructor')
-      .then(report => 
+      .then(async report => 
         {
-          this.dsInstructores.data = report as any[]
+          // Verifico relacion con capacitacion actual
+          let res = await this.inThisCap(report);
 
+          // Cargo el data set
+          this.dsInstructores.data = res as any[]
+          
         }
         );
 
     this.usuariosService.getUsPerCapByRol('alumno')
-      .then(report => 
+      .then(async report => 
         {
-          this.dsAlumnos.data = report as any[]
+          // Verifico relacion con capacitacion actual
+          let res = await this.inThisCap(report);
+
+          this.dsAlumnos.data = res as any[]
 
         }
         );
 
     this.usuariosService.getUsPerCapByRol('multiplicador')
-      .then(report => 
+      .then(async report => 
         {
-          this.dsMultiplicadores.data = report as any[]
-          console.log(this.dsMultiplicadores.data);
+          // Verifico relacion con capacitacion actual
+          let res = await this.inThisCap(report);
+
+          this.dsMultiplicadores.data = res as any[]
 
         }
         );  
@@ -98,6 +113,29 @@ export class AsignacionesComponent implements OnInit {
 
     this.changeDetectorRef.detectChanges();
 
+  }
+
+  /**
+   * Verifico si cada usuario está relacionado
+   * con la capacitación actual.
+   * @param report objeto con usuarios
+   * @returns objeto con usuarios + inThisCap
+   */
+  private inThisCap(report: object){
+    // Recorro usuarios
+    for (let user in report ){
+      // asigno valor false por defecto
+      report[user]['inThisCap'] = false;
+      // Recorro capacitaciones de cada usuario
+      for (let cap in report[user]['Capacitacions'] ){
+        // verifico si esa cap es igual a la cap actual 
+        if (report[user]['Capacitacions'][cap]['id'] === this.capacitacion.id){
+          // Usuario es instructor
+          report[user]['inThisCap'] = true;
+        }
+      }
+    }
+    return report;
   }
 
   /**
@@ -137,5 +175,13 @@ export class AsignacionesComponent implements OnInit {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dsAlumnos.filter = filterValue.trim().toLowerCase();
   }
+
+  // isInstructor: boolean = false;
+  // public async marcaInstructor(valor: boolean){
+  //   await this.delay(2000);
+  //   this.isInstructor = valor;
+  //   console.log(this.isInstructor)
+  // }
+  
 
 }

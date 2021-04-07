@@ -23,12 +23,11 @@ import { ErrorDialogService } from './services/error-dialog.service';
 
 
 
-
 @NgModule({
   declarations: [
     AppComponent,
     LayoutComponent,
-    ErrorDialogComponent
+    ErrorDialogComponent,
   ],
   imports: [
     BrowserModule,

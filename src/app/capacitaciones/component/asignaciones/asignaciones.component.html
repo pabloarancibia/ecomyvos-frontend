@@ -62,38 +62,21 @@
             <ng-container matColumnDef="accion">
                 <th mat-header-cell *matHeaderCellDef> Accion </th>
                 <td mat-cell *matCellDef="let element">
-                <div *ngIf="element.Capacitacions.length != 0; else noCaps"> 
-                    <div *ngFor= "let cap of element.Capacitacions" >
-                        <div *ngIf="cap.id != capacitacion.id; else noInstructor">
-                                
-                                    <button  mat-mini-fab color="primary" 
-                                        matTooltip="Asignar como Instructor" 
-                                        aria-label="añadir"
-                                        (click)="asignarCapacitacion(element.id)">
-                                        <mat-icon>person_add</mat-icon>
-                                    </button>
-                        </div>
-                        <ng-template #noInstructor>
-                            <div>     
-                                    <button 
-                                    mat-mini-fab 
-                                    color="warn" m
-                                    atTooltip="Quitar como Instructor" 
-                                    aria-label="quitar"
-                                    (click)="quitarCapacitacion(element.id)">
-                                        <mat-icon>clear</mat-icon>
-                                    </button>
-                            </div> 
-                        </ng-template>  
-                    </div>
-                </div>
-                <ng-template #noCaps> 
-                    <button  mat-mini-fab color="primary" 
-                    matTooltip="Asignar como Instructor" aria-label="añadir"
-                    (click)="asignarCapacitacion(element.id)">
-                        <mat-icon>person_add</mat-icon>
-                    </button>
-                </ng-template>      
+                   <ng-container *ngIf="element.inThisCap;else noInstructor">
+                        <button mat-mini-fab color="warn" 
+                            matTooltip="Quitar Instructor" aria-label="quitar"
+                            (click)="quitarCapacitacion(element.id)">
+                            <mat-icon>clear</mat-icon>
+                        </button>
+                   </ng-container>
+                   <ng-template #noInstructor>
+                        <button mat-mini-fab color="primary" 
+                            matTooltip="Asignar como Instructor" 
+                            aria-label="añadir"
+                            (click)="asignarCapacitacion(element.id)">
+                            <mat-icon>person_add</mat-icon>
+                        </button>
+                   </ng-template>
                 </td>
             </ng-container>
 
@@ -158,36 +141,21 @@
         <ng-container matColumnDef="accion">
             <th mat-header-cell *matHeaderCellDef> Accion </th>
             <td mat-cell *matCellDef="let element">
-                <div *ngIf="element.Capacitacions.length != 0; else noCapsAl">
-                    <div *ngFor= "let cap of element.Capacitacions" >
-                        <div *ngIf="cap.id != capacitacion.id; else noMultiplicador">
-                            <button mat-mini-fab color="primary" 
-                            matTooltip="Asignar como Multiplicador" aria-label="añadir"
-                            (click)="asignarCapacitacion(element.id)">
-                                <mat-icon>person_add</mat-icon>
-                            </button>
-                        </div>    
-                        <ng-template #noMultiplicador>
-                            <div>
-                                <button mat-mini-fab color="warn" 
-                                    matTooltip="Quitar Multiplicador" aria-label="quitar"
-                                    (click)="quitarCapacitacion(element.id)">
-                                <mat-icon>clear</mat-icon>
-                            </button>
-                            </div>  
-                        </ng-template>
-                    </div>
-                </div>
-                <div>
-                    <ng-template #noCapsAl> 
-                        <button mat-mini-fab color="primary" 
-                        matTooltip="Asignar como Multiplicador" aria-label="añadir"
+               <ng-container *ngIf="element.inThisCap;else noMultiplicador">
+                    <button mat-mini-fab color="warn" 
+                        matTooltip="Quitar Multiplicador" aria-label="quitar"
+                        (click)="quitarCapacitacion(element.id)">
+                        <mat-icon>clear</mat-icon>
+                    </button>
+               </ng-container>
+               <ng-template #noMultiplicador>
+                    <button mat-mini-fab color="primary" 
+                        matTooltip="Asignar como Multiplicador" 
+                        aria-label="añadir"
                         (click)="asignarCapacitacion(element.id)">
-                            <mat-icon>person_add</mat-icon>
-                        </button>
-                    </ng-template> 
-                </div>
-                  
+                        <mat-icon>person_add</mat-icon>
+                    </button>
+               </ng-template>
             </td>
         </ng-container>
 
@@ -251,36 +219,21 @@
         <ng-container matColumnDef="accion">
             <th mat-header-cell *matHeaderCellDef> Accion </th>
             <td mat-cell *matCellDef="let element">
-                <div *ngIf="element.Capacitacions.length != 0; else noCapsAl">
-                    <div *ngFor= "let cap of element.Capacitacions" >
-                        <div *ngIf="cap.id != capacitacion.id; else noAlumno">
-                            <button mat-mini-fab color="primary" 
-                            matTooltip="Asignar como Alumno" aria-label="añadir"
-                            (click)="asignarCapacitacion(element.id)">
-                                <mat-icon>person_add</mat-icon>
-                            </button>
-                        </div>    
-                        <ng-template #noAlumno>
-                            <div>
-                                <button mat-mini-fab color="warn" 
-                                    matTooltip="Quitar Alumno" aria-label="quitar"
-                                    (click)="quitarCapacitacion(element.id)">
-                                <mat-icon>clear</mat-icon>
-                            </button>
-                            </div> 
-                        </ng-template>
-                    </div>
-                </div>
-                <ng-template #noCapsAl>
-                    <div>
-                        <button mat-mini-fab color="primary" 
-                        matTooltip="Asignar como Alumno" aria-label="añadir"
+               <ng-container *ngIf="element.inThisCap;else noAlumno">
+                    <button mat-mini-fab color="warn" 
+                        matTooltip="Quitar Alumno" aria-label="quitar"
+                        (click)="quitarCapacitacion(element.id)">
+                        <mat-icon>clear</mat-icon>
+                    </button>
+               </ng-container>
+               <ng-template #noAlumno>
+                    <button mat-mini-fab color="primary" 
+                        matTooltip="Asignar como Alumno" 
+                        aria-label="añadir"
                         (click)="asignarCapacitacion(element.id)">
-                            <mat-icon>person_add</mat-icon>
-                        </button>
-                    </div> 
-                    
-                </ng-template>   
+                        <mat-icon>person_add</mat-icon>
+                    </button>
+               </ng-template>
             </td>
         </ng-container>
 
