@@ -54,11 +54,11 @@ export class AsignacionesComponent implements OnInit {
     
   }
 
-  public async getCapacitacion() {
+  public getCapacitacion() {
     const id = this.activeRoute.snapshot.paramMap.get('id');
     console.log(id);
     try {
-      await this.capacitacionesService.getCapacitacion(id)
+      this.capacitacionesService.getCapacitacion(id)
         .then(report => {
           this.capacitacion = report,   
           console.log(this.capacitacion);
@@ -116,7 +116,7 @@ export class AsignacionesComponent implements OnInit {
   }
 
   /**
-   * Verifico si cada usuario está relacionado
+   * Verifico qué usuario está relacionado
    * con la capacitación actual.
    * @param report objeto con usuarios
    * @returns objeto con usuarios + inThisCap

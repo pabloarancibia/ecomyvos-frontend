@@ -32,23 +32,46 @@ export class CapacitacionesComponent implements OnInit {
     ) { }
 
   ngOnInit(): void {
-    // this.capacitacionesService.getCapacitaciones().then((allCapacitaciones) => {
-    // this.capacitaciones = allCapacitaciones;
-    // console.log(this.capacitaciones);
-    // });
-
-    this.getAllCapacitaciones();
     this.getCapsUsRegistrado();
   }
 
+  /**
+   * Trae capacitaciones de usuario registrado
+   * luego llama a getAll
+   */
+   public getCapsUsRegistrado(){
+
+    this.usuariosService.getCapsUsRegistrado()
+    .then(res=>
+      {
+         this.capacitacionesUsuario = res.Capacitaciones
+         // ahora traigo todas las capacitaciones
+         this.getAllCapacitaciones()
+         
+      }
+      );
+    
+  
+  }
+
+
+  /**
+   * Traigo todas las capacitaciones existentes
+   */
   public getAllCapacitaciones() {
     this.capacitacionesService.getCapacitaciones()
-      .then(report => 
+      .then(async caps => 
         {
-          this.dataSource.data = report as Capacitaciones[]
+          // verifico de cada cap si tiene a usuario actual
+          let res = await this.haveThisUser(caps);
+          
+          //cargo ds con caps + haveThisUser
+          this.dataSource.data = res as Capacitaciones[]
           
         });
+  
     this.changeDetectorRef.detectChanges();
+
     
   }
 
@@ -58,19 +81,29 @@ export class CapacitacionesComponent implements OnInit {
 
   }
 
+  
   /**
-   * Traer capacitaciones usuario registrado
+   * Verifico qué cap está relacionada
+   * con user actual.
+   * @param report objeto con caps
+   * @returns objeto con caps + haveThisUser
    */
-  getCapsUsRegistrado(){
-
-    this.usuariosService.getCapsUsRegistrado()
-    .then(res=>
-      {
-         this.capacitacionesUsuario = res.Capacitaciones
-         
-         console.log(res)
+   private haveThisUser(report: object){
+    // Recorro caps
+    for (let cap in report ){
+      // asigno valor false por defecto
+      report[cap]['haveThisUser'] = false;
+      
+      // Recorro caps del user
+      for (let capUs in this.capacitacionesUsuario ){
+        // verifico si cap usuario es igual a la cap fila 
+        if (this.capacitacionesUsuario[capUs]['id'] === report[cap]['id']){
+          // Cap tiene a user actual
+          report[cap]['haveThisUser'] = true;
+        }
       }
-      );
+    }
+    return report;
   }
   
 /**
@@ -81,7 +114,8 @@ export class CapacitacionesComponent implements OnInit {
     this.data.capacitacionId = capacitacionId;
     this.usuariosService.inscripcionAlumno(this.data)
     .then(res=>{
-      this.getAllCapacitaciones()
+      
+      this.getCapsUsRegistrado();
     }).catch(err=>console.log(err));
   }
 
@@ -93,7 +127,7 @@ export class CapacitacionesComponent implements OnInit {
     this.data.capacitacionId = capacitacionId;
     this.usuariosService.quitarInscripcion(this.data)
     .then(res=>{
-      this.getAllCapacitaciones()
+      this.getCapsUsRegistrado()
     }).catch(err=>console.log(err));
   }
 
