@@ -19,6 +19,7 @@ import { JwtModule } from "@auth0/angular-jwt";
 import { HttpErrorInterceptor } from './services/interceptors/http-error-interceptor.service';
 import { ErrorDialogComponent } from './errors/component/errordialog/errordialog.component';
 import { ErrorDialogService } from './services/error-dialog.service';
+import { EqualValidatorDirective } from './directives/equal-validator.directive';
 
 
 
@@ -28,6 +29,7 @@ import { ErrorDialogService } from './services/error-dialog.service';
     AppComponent,
     LayoutComponent,
     ErrorDialogComponent,
+    EqualValidatorDirective,
   ],
   imports: [
     BrowserModule,

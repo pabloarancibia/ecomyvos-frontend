@@ -20,7 +20,15 @@
                 <br>
                 <mat-form-field>
                     <mat-label>Repetir Contraseña</mat-label>
-                    <input matInput type="password">
+                    <input matInput type="password" formControlName="confirmPassword" name="confirmPassword"
+                    id="confirmPassword" [errorStateMatcher]="matcher">
+
+                    <mat-error *ngIf="form.hasError('notSame')">
+                        Contraseñas no coinciden
+                      </mat-error>  
+                      <!-- <mat-error *ngIf="form.errors?.notSame">nombre de usuario es requerido</mat-error> -->
+                      <!-- <mat-error *ngIf="form.get('password')!=form.get('confirmPassword')">Las contraseñas no coinciden</mat-error> -->
+
                 </mat-form-field>
                 <br>
                 <mat-form-field>
@@ -67,7 +75,7 @@
                 </mat-form-field>
                 <br>
 
-                <button type="submit" mat-raised-button color="primary">Registrarse</button>
+                <button type="submit" [disabled]="!form.valid" mat-raised-button color="primary">Registrarse</button>
             </mat-card-content>
         </mat-card>
     </form>
