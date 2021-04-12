@@ -15,7 +15,9 @@
                 <br>
                 <mat-form-field>
                     <mat-label>Contraseña</mat-label>
-                    <input formControlName="password" name="password" matInput type="password">
+                    <input formControlName="password" name="password" matInput type="password"
+                    pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}">
+                      <mat-error *ngIf="form.get('password').errors?.pattern">Debe contener al menos un número, una mayúscula y una minúscula, y no menos de 8 caracteres</mat-error>
                 </mat-form-field>
                 <br>
                 <mat-form-field>
