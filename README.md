@@ -8,7 +8,7 @@ Ejecutar `npm install` para instalar todos los módulos.
 
 ## Despliegue Local
 
-Para desarrollo correr `npm start`. 
+Para desarrollo correr `npm start`.   
 Navegar a `http://localhost:4200/`. 
 
 
