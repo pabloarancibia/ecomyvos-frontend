@@ -39,8 +39,19 @@
         <ng-template #loggedIn>
           <button mat-raised-button (click)="authService.logout()" color="warn">Salir</button>
         </ng-template>
-      </nav>
+
+          <!-- <mat-icon class="mr-8">brightness_5</mat-icon>
+          <mat-slide-toggle [formControl]="toggleControl" class="mr-8">
+          </mat-slide-toggle>
+          <mat-icon>bedtime</mat-icon> -->
+      </nav>      
+    
     </div>
+    
+
+    <!-- --------------- -->
+    <!-- MOBILE SCREEN -->
+    <!-- --------------- -->
     <div class="menu">
       <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="">
         <mat-icon>menu</mat-icon>
@@ -84,19 +95,27 @@
         <!-- Administración -->
         <button 
           *ngIf="authService.loggedIn() && authService.getRolLS()==='admin'" 
-          mat-button [matMenuTriggerFor]="menuAdm">
-            Administración
+          mat-menu-item >
+          <a mat-button routerLink="/admin/usuarios">Administrar Usuarios</a>
         </button>
-          <mat-menu #menuAdm="matMenu"> 
-            <button mat-menu-item routerLink="/admin/usuarios">Administrar Usuarios</button>
-          </mat-menu>
 
-        <button mat-menu-item>
-          <!-- <mat-icon>notifications_off</mat-icon> -->
-          <span>
-            <a mat-raised-button routerLink="/auth/login" color="">Ingresar</a>
-          </span>
-        </button>
+        <!-- INGRESAR/SALIR -->
+        <ng-container *ngIf="!authService.loggedIn(); else loggedIn">
+          <button mat-menu-item>
+            <!-- <mat-icon>notifications_off</mat-icon> -->
+            <span>
+          <a mat-raised-button routerLink="/auth/login" color="">Ingresar</a>
+        </span></button>
+        </ng-container>
+        <ng-template #loggedIn>
+          <button mat-menu-item>
+            <!-- <mat-icon>notifications_off</mat-icon> -->
+            <span>
+          <a mat-raised-button (click)="authService.logout()" color="warn">Salir</a>
+        </span></button>
+        </ng-template>
+
+
       </mat-menu>
     </div>
   </mat-toolbar-row>

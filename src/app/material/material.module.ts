@@ -16,6 +16,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
 import {MatMenuModule} from '@angular/material/menu';
+import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 
 /**
  * ngx-material-timepicker 
@@ -46,6 +47,7 @@ import { NgxMaterialTimepickerModule } from 'ngx-material-timepicker';
     MatSidenavModule,
     MatListModule,
     MatMenuModule,
+    MatSlideToggleModule
 
   ],
   exports: [
@@ -66,6 +68,7 @@ import { NgxMaterialTimepickerModule } from 'ngx-material-timepicker';
     MatSidenavModule,
     MatListModule,
     MatMenuModule,
+    MatSlideToggleModule
 
   ]
 })
