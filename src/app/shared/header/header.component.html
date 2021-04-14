@@ -1,31 +1,38 @@
 <mat-toolbar color="primary" class="mat-elevation-z8">
   <mat-toolbar-row>
-    <span>ECOM Y VOS</span>
+    <span>
+      <a routerLink="/inicio">
+        <img class="logo" src="./assets/img/encabezado3_ECOM_y_VOS.png" alt="" >
+      </a>
+    </span>
     <span class="spacer"></span>
     <div class="buttons">
       <nav>
+        <!-- INICIO -->
         <a mat-button routerLink="/inicio">Inicio</a>
-        <!-- Adm -->
 
+        <!-- CAPACITACIONES -->
         <a *ngIf="authService.loggedIn()" mat-button routerLink="/capacitaciones">Capacitaciones</a>
         <!-- <a mat-button routerLink="/instructores">Instructores</a>
         <a mat-button routerLink="/alumnos">Alumnos</a>
         <a mat-button routerLink="/multiplicadores">Multiplicadores</a>
         <a mat-button routerLink="/certificados">Certificados</a> -->
-        <!-- Alumnos -->
-        <a *ngIf="authService.loggedIn()" mat-button routerLink="/asistencias/alumnos">Asistencia</a>
         
-        <!-- Administración -->
+        <!-- ASISTENCIAS -->
+        <!-- <a *ngIf="authService.loggedIn()" mat-button routerLink="/asistencias/alumnos">Asistencia</a> -->
+        
+        <!-- ADMINISTRACION -->
         <button 
           *ngIf="authService.loggedIn() && authService.getRolLS()==='admin'" 
-          mat-button [matMenuTriggerFor]="menu">
+          mat-button [matMenuTriggerFor]="menuAdm">
             Administración
         </button>
-          <mat-menu #menu="matMenu"> 
+        <!-- ADM USUARIOS -->
+          <mat-menu #menuAdm="matMenu"> 
             <button mat-menu-item routerLink="/admin/usuarios">Administrar Usuarios</button>
           </mat-menu>
 
-        <!-- usuario -->
+        <!-- INGRESAR/SALIR -->
         <ng-container *ngIf="!authService.loggedIn(); else loggedIn">
           <a mat-raised-button routerLink="/auth/login" color="">Ingresar</a>
         </ng-container>
@@ -44,35 +51,45 @@
           <span><a mat-button routerLink="/inicio">Inicio</a>
           </span>
         </button>
-        <button mat-menu-item>
+        <button *ngIf="authService.loggedIn()" mat-menu-item>
           <!-- <mat-icon>voicemail</mat-icon> -->
           <span><a mat-button routerLink="/capacitaciones">Capacitaciones</a>
           </span>
         </button>
-        <button mat-menu-item>
-          <!-- <mat-icon>notifications_off</mat-icon> -->
-          <span>
+       <!-- <button mat-menu-item>
+           <mat-icon>notifications_off</mat-icon> -->
+          <!-- <span>
             <a mat-button routerLink="/instructores">Instructores</a>
           </span>
         </button>
-        <button mat-menu-item>
+        <button mat-menu-item> -->
           <!-- <mat-icon>notifications_off</mat-icon> -->
-          <span>
+          <!-- <span>
             <a mat-button routerLink="/alumnos">Alumnos</a>
           </span>
         </button>
-        <button mat-menu-item>
+        <button mat-menu-item> -->
           <!-- <mat-icon>notifications_off</mat-icon> -->
-          <span>
+          <!-- <span>
             <a mat-button routerLink="/multiplicadores">Multiplicadores</a>
           </span>
         </button>
-        <button mat-menu-item>
+        <button mat-menu-item> -->
           <!-- <mat-icon>notifications_off</mat-icon> -->
-          <span>
+          <!-- <span>
             <a mat-button routerLink="/certificados">Certificados</a>
           </span>
+        </button> -->
+
+        <!-- Administración -->
+        <button 
+          *ngIf="authService.loggedIn() && authService.getRolLS()==='admin'" 
+          mat-button [matMenuTriggerFor]="menuAdm">
+            Administración
         </button>
+          <mat-menu #menuAdm="matMenu"> 
+            <button mat-menu-item routerLink="/admin/usuarios">Administrar Usuarios</button>
+          </mat-menu>
 
         <button mat-menu-item>
           <!-- <mat-icon>notifications_off</mat-icon> -->

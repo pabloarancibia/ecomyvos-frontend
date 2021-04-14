@@ -6,7 +6,7 @@
 
 .grid {
     display: grid;
-    grid-template-columns: 40% 60%;
+    grid-template-columns: 100%;
     //grid-template-columns: repeat(6,1fr);
     //grid-template-rows: 200px;
     //grid-template-rows: minmax(100px,auto);
@@ -16,10 +16,26 @@
     //align-items: center; //align x
     //align-self: start; // alineacion (para cada uno de los elementos)
 }
-.text-card h1{
-    padding: 20px 0;
-    // text-align: center;
-    font-size: 2.9em;
+
+.text-card img {
+    display:block; /* para centrar */
+    margin:40px auto 40px auto; /* para centrar */
+    width: 50%;
+    height: 50%;
+}
+
+.text-card p{ 
+    display:block;
+    margin:20px auto 20px auto;
+    font-size: 1.5em;
+    line-height: 1.5em;
+}
+
+.img-card img{
+    display:block;
+    margin:20px auto 20px auto;
+    width: 100%;
+    height: 100%;
 }
 
 @media screen and (max-width: 768px) {
@@ -31,5 +47,24 @@
     }
     article {
         margin-bottom: 5em;
+    }
+
+    .text-card p{   
+        font-size: 1.0em;
+    }
+    
+    .text-card img {
+        width: 50%;
+        height: 30%;
+        display:block;
+        margin:40px auto 40px auto;
+        
+    }
+    
+    .img-card img{
+        width: 100%;
+        height: 100%;
+        display:block;
+        margin:20px auto 20px auto;
     }
 }

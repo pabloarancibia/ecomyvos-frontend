@@ -20,7 +20,9 @@ footer {
   .box {
     
     h3 {
+      margin: auto;
       color: white;
+
     }
     input{
       color: white;
@@ -30,16 +32,16 @@ footer {
       margin: 0px;
       padding: 0px;
       li {
-        margin: 10px 0px;
+        margin: 5px 0px;
         a {
           text-decoration: none;
-          color: white;
+          color: rgb(221, 217, 217);
         }
       }
     }
     img {
-      width: 200px;
-      height: 75px;
+      width: 250px;
+      height: 100px;
     }
   }
 }
