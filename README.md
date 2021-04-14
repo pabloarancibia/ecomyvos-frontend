@@ -1,27 +1,22 @@
-# Frontend
+# Ecom y Vos - Frontend
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 10.2.0.
+[Angular CLI](https://github.com/angular/angular-cli) version 10.2.0.
 
-## Development server
+## Dependencias
+Ejecutar `npm install` para instalar todos los módulos. 
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
 
-## Code scaffolding
+## Despliegue Local
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+Para desarrollo correr `npm start`. 
+Navegar a `http://localhost:4200/`. 
 
-## Build
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
+## Despliegue en Producción
 
-## Running unit tests
+Ejecutar `ng build --prod` 
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+se creará la carpeta /dist
 
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+## Variables de entorno
+Indicar la url correspondiente de la API en /environments con el puerto declarado previamente en /backend/.env
