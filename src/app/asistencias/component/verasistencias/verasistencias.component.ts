@@ -1,39 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+
 import { MatTableDataSource } from '@angular/material/table';
+import { Capacitaciones } from "../../../models/capacitaciones.model";
+import { CapacitacionesService } from "../../../services/capacitaciones.service";
+import { UsuariosService } from '../../../services/usuarios.service';
 
-export interface PeriodicElement {
-  nombre: string;
-  position: number;
-  organizacion: string;
-  ubicacion: string;
-  fecha: string;
-}
-export interface PeriodicElementAsis {
-  nombre: string;
-  position: number;
-  apellido: string;
-  cuil: number;
-  fecha: string;
-  fecha1: string;
-  fecha2: string;
-  fecha3: string;
-  porcentaje: number;
-}
-
-const ELEMENT_DATA: PeriodicElement[] = [
-  { position: 1, nombre: 'Computación Básica', organizacion: 'Fundación Crecer', ubicacion: 'B° Provincias Unidas - Mz5 Pc66', fecha: '15/02/2021' },
-];
-
-const ELEMENT_DATA_ASIS: PeriodicElementAsis[] = [
-  { position: 1, nombre: 'Pedro', apellido: 'Perez', cuil: 1212312312, fecha: 'P', fecha1: 'P', fecha2: 'P', fecha3: 'P',porcentaje: 100 },
-  { position: 2, nombre: 'Pedro', apellido: 'Perez', cuil: 1212312312, fecha: 'P', fecha1: 'P', fecha2: 'P', fecha3: 'P',porcentaje: 100 },
-  { position: 3, nombre: 'Pedro', apellido: 'Perez', cuil: 1212312312, fecha: 'P', fecha1: 'P', fecha2: 'P', fecha3: 'P',porcentaje: 100 },
-  { position: 4, nombre: 'Pedro', apellido: 'Perez', cuil: 1212312312, fecha: 'P', fecha1: 'P', fecha2: 'P', fecha3: 'P',porcentaje: 100 },
-  { position: 5, nombre: 'Pedro', apellido: 'Perez', cuil: 1212312312, fecha: 'P', fecha1: 'P', fecha2: 'P', fecha3: 'P',porcentaje: 100 },
-  { position: 6, nombre: 'Pedro', apellido: 'Perez', cuil: 1212312312, fecha: 'P', fecha1: 'P', fecha2: 'P', fecha3: 'P',porcentaje: 100 },
-  { position: 7, nombre: 'Pedro', apellido: 'Perez', cuil: 1212312312, fecha: 'P', fecha1: 'P', fecha2: 'P', fecha3: 'P',porcentaje: 100 },
-  { position: 8, nombre: 'Pedro', apellido: 'Perez', cuil: 1212312312, fecha: 'P', fecha1: 'P', fecha2: 'P', fecha3: 'P',porcentaje: 100 },
-];
 
 
 @Component({
@@ -43,22 +15,56 @@ const ELEMENT_DATA_ASIS: PeriodicElementAsis[] = [
 })
 export class VerasistenciasComponent implements OnInit {
 
-  constructor() { }
+  // usuario seleccionado y capacitacion actual
+  data = {
+    usuarioId: 0,
+    capacitacionId: 0
+  }
 
-  displayedColumns: string[] = ['position', 'nombre', 'organizacion', 'ubicacion', 'fecha'];
-  displayedColumnsAsis: string[] = ['position', 'nombre', 'apellido', 'cuil', 'fecha', 'fecha1', 'fecha2', 'fecha3', 'porcentaje'];
+  public capacitacion: Capacitaciones;
+  displayedColumnsAsis: string[] = ['position', 'nombre', 'apellido', 'accion'];
+  dataSourceAsis = new MatTableDataSource;
 
-  dataSource = new MatTableDataSource(ELEMENT_DATA);
-  dataSourceAsis = new MatTableDataSource(ELEMENT_DATA_ASIS);
 
+
+  constructor(
+    private capacitacionesService: CapacitacionesService,
+    private activeRoute: ActivatedRoute,
+    private changeDetectorRef: ChangeDetectorRef,
+    private usuariosService: UsuariosService,
+  ) { }
+
+  ngOnInit(): void {
+    this.getCapacitacion(); 
+
+  }
+
+  public getCapacitacion() {
+    const id = this.activeRoute.snapshot.paramMap.get('id');
+    console.log(id);
+    try {
+      this.capacitacionesService.getCapacitacion(id)
+        .then(report => {
+          this.capacitacion = report,   
+          console.log(this.capacitacion);
+
+          // CARGO LOS DATA SETS
+          // this.cargaDs();
+          });
+          
+    } catch (error) {
+        // console.log(error);
+    }
+  }
+
+  
 
   // tslint:disable-next-line: typedef
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
-    this.dataSource.filter = filterValue.trim().toLowerCase();
+    this.dataSourceAsis.filter = filterValue.trim().toLowerCase();
   }
 
-  ngOnInit(): void {
-  }
+  
 
 }

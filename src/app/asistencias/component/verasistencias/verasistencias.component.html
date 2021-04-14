@@ -1,108 +1,70 @@
 <div class="content">
-    <h1>Capacitación</h1>
-    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8 capacitacion">
-        <ng-container matColumnDef="position">
-            <th mat-header-cell *matHeaderCellDef> No. </th>
-            <td mat-cell *matCellDef="let element"> {{element.position}} </td>
-        </ng-container>
-        <ng-container matColumnDef="nombre">
-            <th mat-header-cell *matHeaderCellDef> Nombre </th>
-            <td mat-cell *matCellDef="let element"> {{element.nombre}} </td>
-        </ng-container>
-        <ng-container matColumnDef="organizacion">
-            <th mat-header-cell *matHeaderCellDef> Organización </th>
-            <td mat-cell *matCellDef="let element"> {{element.organizacion}} </td>
-        </ng-container>
-        <ng-container matColumnDef="ubicacion">
-            <th mat-header-cell *matHeaderCellDef> Ubicación </th>
-            <td mat-cell *matCellDef="let element"> {{element.ubicacion}} </td>
-        </ng-container>
-        <ng-container matColumnDef="fecha">
-            <th mat-header-cell *matHeaderCellDef> Fecha de Inicio </th>
-            <td mat-cell *matCellDef="let element"> {{element.fecha}} </td>
-        </ng-container>
-
-        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-
-        <!-- Row shown when there is no matching data. -->
-        <tr class="mat-row" *matNoDataRow>
-            <td class="mat-cell" colspan="4">Sin datos... "{{input.value}}"</td>
-        </tr>
-    </table>
-    <br>
-    <hr />
+    <div *ngIf="capacitacion" >
+        <h1>{{capacitacion.nombre | uppercase}}</h1>
+        <h2>
+            {{capacitacion.convenio | uppercase}} |
+            {{capacitacion.direccion}} |
+            {{capacitacion.fechainicio | date: 'dd/MM/yyyy'}} a
+            {{capacitacion.fechafin | date: 'dd/MM/yyyy'}} |
+            {{capacitacion.horainicio}} a
+            {{capacitacion.horafin}}
+        </h2>
+    </div>
+        <br>
+        <hr />
     <h1>Asistencias</h1>
+    <mat-form-field>
+        <mat-label>Filtro nombre de usuario</mat-label>
+        <input matInput (keyup)="applyFilter($event)" placeholder="Ej. Lopez" #input>
+    </mat-form-field>
+
     <table mat-table [dataSource]="dataSourceAsis" class="mat-elevation-z8">
+
+        <!-- Position Column -->
         <ng-container matColumnDef="position">
-            <th mat-header-cell *matHeaderCellDef> No. </th>
-            <td mat-cell *matCellDef="let element"> {{element.position}} </td>
+            <th mat-header-cell *matHeaderCellDef> Id. </th>
+            <td mat-cell *matCellDef="let element"> {{element.id}} </td>
         </ng-container>
+
+        <!-- Nombre Column -->
         <ng-container matColumnDef="nombre">
             <th mat-header-cell *matHeaderCellDef> Nombre </th>
-            <td mat-cell *matCellDef="let element"> {{element.nombre}} </td>
+            <td mat-cell *matCellDef="let element"> {{element.Persona.nombre}} </td>
         </ng-container>
+
+        <!-- apellido Column -->
         <ng-container matColumnDef="apellido">
             <th mat-header-cell *matHeaderCellDef> Apellido </th>
-            <td mat-cell *matCellDef="let element"> {{element.apellido}} </td>
-        </ng-container>
-        <ng-container matColumnDef="cuil">
-            <th mat-header-cell *matHeaderCellDef> Cuil </th>
-            <td mat-cell *matCellDef="let element"> {{element.cuil}} </td>
-        </ng-container>
-        <ng-container matColumnDef="fecha">
-            <th mat-header-cell *matHeaderCellDef> 15/04 </th>
-            <td mat-cell *matCellDef="let element"> {{element.fecha}} </td>
-        </ng-container>
-        <ng-container matColumnDef="fecha1">
-            <th mat-header-cell *matHeaderCellDef> 16/04 </th>
-            <td mat-cell *matCellDef="let element"> {{element.fecha1}} </td>
-        </ng-container>
-        <ng-container matColumnDef="fecha2">
-            <th mat-header-cell *matHeaderCellDef> 17/04 </th>
-            <td mat-cell *matCellDef="let element"> {{element.fecha2}} </td>
-        </ng-container>
-        <ng-container matColumnDef="fecha3">
-            <th mat-header-cell *matHeaderCellDef> 18/04 </th>
-            <td mat-cell *matCellDef="let element">
-                <button mat-mini-fab color="primary" matTooltip="Asignar Presente" aria-label="presente">
-                    <mat-icon>check</mat-icon>
-                </button>
-                <button mat-mini-fab color="accent" matTooltip="Asignar Ausente" aria-label="ausente">
-                    <mat-icon>close</mat-icon>
-                </button>
-            </td>
+            <td mat-cell *matCellDef="let element"> {{element.Persona.apellido}} </td>
         </ng-container>
 
         <!-- Accion Column -->
         <ng-container matColumnDef="accion">
             <th mat-header-cell *matHeaderCellDef> Accion </th>
             <td mat-cell *matCellDef="let element">
-                <button mat-mini-fab color="primary" routerLink="/asistencias/verasistencias" matTooltip="Asistencias"
-                    aria-label="Asistencias">
-                    <mat-icon>list_alt</mat-icon>
-                </button>
-                <button mat-mini-fab color="primary" matTooltip="Ver detalles del curso" aria-label="detalles">
-                    <mat-icon>read_more</mat-icon>
-                </button>
-                <button mat-mini-fab color="accent" routerLink="/capacitaciones/asignar"
-                    matTooltip="Asignar Instructores y Alumnos" aria-label="Asignar">
-                    <mat-icon>person_add</mat-icon>
-                </button>
+               <ng-container *ngIf="element.inThisCap;else noAlumno">
+                    <button mat-mini-fab color="warn" 
+                        matTooltip="Quitar Alumno" aria-label="quitar"
+                        (click)="quitarCapacitacion(element.id)">
+                        <mat-icon>clear</mat-icon>
+                    </button>
+               </ng-container>
+               <ng-template #noAlumno>
+                    <button mat-mini-fab color="primary" 
+                        matTooltip="Asignar como Alumno" 
+                        aria-label="añadir"
+                        (click)="asignarCapacitacion(element.id)">
+                        <mat-icon>person_add</mat-icon>
+                    </button>
+               </ng-template>
             </td>
-        </ng-container>
-
-        <ng-container matColumnDef="porcentaje">
-            <th mat-header-cell *matHeaderCellDef> Porcentaje </th>
-            <td mat-cell *matCellDef="let element"> {{element.porcentaje}} %</td>
         </ng-container>
 
         <tr mat-header-row *matHeaderRowDef="displayedColumnsAsis"></tr>
         <tr mat-row *matRowDef="let row; columns: displayedColumnsAsis;"></tr>
 
-        <!-- Row shown when there is no matching data. -->
         <tr class="mat-row" *matNoDataRow>
-            <td class="mat-cell" colspan="4">Sin datos... "{{input.value}}"</td>
+            <td class="mat-cell" colspan="4">Sin datos para alumno: "{{input.value}}"</td>
         </tr>
     </table>
 </div>

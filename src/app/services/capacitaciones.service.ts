@@ -47,5 +47,12 @@ export class CapacitacionesService {
     });
   }
 
+  eliminarCapacitacion(id: number){
+    return this._http.delete(this.URL + 'eliminarcapacitacion/' + id).toPromise()
+    .then(result =>{
+      return result;
+    });
+  }
+
 
 }

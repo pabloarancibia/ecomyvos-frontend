@@ -76,8 +76,8 @@ export class RegisterComponent implements OnInit {
       .subscribe(
         res => {
           console.log(res);
-          this.authService.storeUserData(res.token,res.Usuario)
-          this.router.navigate(['/inicio'])
+          // this.authService.storeUserData(res.token,res.Usuario)
+          this.router.navigate(['/auth/login'])
         },
         err => {
           console.log(err)
