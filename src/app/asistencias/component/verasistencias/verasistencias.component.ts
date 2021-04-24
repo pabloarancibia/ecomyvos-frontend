@@ -17,8 +17,8 @@ export class VerasistenciasComponent implements OnInit {
 
   // usuario seleccionado y capacitacion actual
   data = {
-    usuarioId: 0,
-    capacitacionId: 0
+    capacitacionId: 0,
+    nombrerol: ''
   }
 
   public capacitacion: Capacitaciones;
@@ -35,18 +35,21 @@ export class VerasistenciasComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.getCapacitacion(); 
+    this.getData(); 
 
   }
 
-  public getCapacitacion() {
+  public getData() {
     const id = this.activeRoute.snapshot.paramMap.get('id');
-    console.log(id);
+    const capid: number =+ id;
+    console.log(capid);
+    this.data.capacitacionId = capid;
+    this.data.nombrerol = 'alumno'
     try {
-      this.capacitacionesService.getCapacitacion(id)
+      this.capacitacionesService.alumnosClasesAsistencias(id)
         .then(report => {
-          this.capacitacion = report,   
-          console.log(this.capacitacion);
+          // this.data = report,   
+          console.log(report);
 
           // CARGO LOS DATA SETS
           // this.cargaDs();
