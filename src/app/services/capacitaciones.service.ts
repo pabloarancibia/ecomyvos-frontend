@@ -54,17 +54,7 @@ export class CapacitacionesService {
     });
   }
 
-  /**
-   * Llamo a buscar datos de asistencia clases y alumnos de una capacitacion
-   * @param data capacitacionId y nombrerol
-   * @returns 
-   */
-  alumnosClasesAsistencias(capacitacionId){
-    return this._http.get(this.URL + 'alumnosclases/' + capacitacionId).toPromise()
-    .then(res=>{
-      return res;
-    })
-  }
+
 
 
 }

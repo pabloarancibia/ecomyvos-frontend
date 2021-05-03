@@ -61,16 +61,28 @@
             <td mat-cell *matCellDef="let element ">
                 <container-element [ngSwitch]="element[disCol]">
                     <some-element *ngSwitchCase="'presente'">
-                        {{element[disCol]}} - ACCION pP 
+                        <button mat-mini-fab color="warn" 
+                        matTooltip="Marcar Ausente" aria-label="Marcar Ausente"
+                        (click)="asignarAsistencia({asistencia:'ausente',usuarioId: element.id, capacitacionId:this.data.cap.id, claseId:disCol})">
+                        <mat-icon>clear</mat-icon>
+                    </button> 
                     </some-element> 
                     <some-element *ngSwitchCase="'ausente'">
-                        {{element[disCol]}} - ACCION pA
+                        <button mat-mini-fab color="primary" 
+                        matTooltip="Marcar Presente" aria-label="Marcar Presente"
+                        (click)="asignarAsistencia({asistencia:'presente',usuarioId: element.id, capacitacionId:this.data.cap.id, claseId:disCol})">
+                        <mat-icon>done</mat-icon>
+                        </button>
                     </some-element>
                     <some-element *ngSwitchCase="">
-                        FALSE
+                        <button mat-mini-fab color="primary" 
+                        matTooltip="Marcar Presente" aria-label="Marcar Presente"
+                        (click)="asignarAsistencia({asistencia:'presente',usuarioId: element.id, capacitacionId:this.data.cap.id, claseId:disCol})">
+                        <mat-icon>done</mat-icon>
+                        </button>
                     </some-element>
                     <some-element *ngSwitchDefault>
-                        {{element[disCol]}} nn                         
+                        {{element[disCol]}}                         
                     </some-element>
                 </container-element>
             </td>
