@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef, ChangeDetectionStrategy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 import { MatTableDataSource } from '@angular/material/table';
@@ -8,12 +8,11 @@ import { UsuariosService } from '../../../services/usuarios.service';
 import * as moment from 'moment';
 
 
-
-
 @Component({
   selector: 'app-verasistencias',
   templateUrl: './verasistencias.component.html',
-  styleUrls: ['./verasistencias.component.scss']
+  styleUrls: ['./verasistencias.component.scss'],
+  // changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class VerasistenciasComponent implements OnInit {
   /**
@@ -23,14 +22,14 @@ export class VerasistenciasComponent implements OnInit {
    */
   data:any = [];
   columns:any = [];
-  // forCol:any = {};
   forDs:any = [];
 
+  displayedColumnsAsis: string[];
+  dataSourceAsis: any;
 
-
-  public capacitacion: Capacitaciones;
-  displayedColumnsAsis: string[] = ['id','Nombre', 'Apellido'];
-  dataSourceAsis = new MatTableDataSource;
+  // public capacitacion: Capacitaciones;
+  // displayedColumnsAsis: string[] = ['id','Nombre', 'Apellido'];
+  // dataSourceAsis = new MatTableDataSource;
 
 
 
@@ -42,8 +41,15 @@ export class VerasistenciasComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.refresh();
     this.callGral(); 
 
+  }
+  refresh(){
+    this.displayedColumnsAsis = ['id','Nombre', 'Apellido'];
+    this.dataSourceAsis = new MatTableDataSource;
+
+    this.changeDetectorRef.detectChanges()
   }
 
   /**
@@ -55,10 +61,11 @@ export class VerasistenciasComponent implements OnInit {
     try {
       await this.asistenciasService.alumnosClasesAsistencias(id)
         .then(report => {
-          this.data = report,   
-          console.log(this.data);    
+          this.data = report,
+          this.changeDetectorRef.detectChanges()
+          console.log('this.data',this.data);    
           });
-      // this.changeDetectorRef.detectChanges();        
+      
     } catch (error) {
         // console.log(error);
     }
@@ -66,21 +73,28 @@ export class VerasistenciasComponent implements OnInit {
 
   public async callGral(){
     await this.getData();
-    await this.cargoColumnas();
-    await this.preparoDS();
+    this.cargoColumnas();
+    // await this.cargoDCA();
+    this.preparoDS();
 
+    this.cargaDS();
+
+    this.changeDetectorRef.detectChanges()
   }
+  
 
-  public cargoColumnas(){
+  public cargoColumnas(){  
+    
     // Cargo COLUMNAS segun cantidad de clases de la capacitacion
     let obj = {};
+    
     for (let c of this.data['cap']['Clases']){
       // for (let f of this.data['cap']['Clases'][c]){
         // obj[c] = this.data['cap']['Clases'][c]['fecha']
         obj[c.id] = c['fecha'] + '('+c.id+') ';
       // }
      }
-     console.log(obj)
+     console.log('obj',obj)
      this.columns.push(obj);
      obj = {};
      console.log('columns', this.columns)
@@ -94,10 +108,13 @@ export class VerasistenciasComponent implements OnInit {
       let stringvalue = momentVariable.format('DD-MM-YYYY'); 
       this.columns[0][ca] = stringvalue + ' *'+ca+'*';
       this.displayedColumnsAsis.push(this.columns[0][ca]);
+      // this.forThisCol.push(this.columns[0][ca])
+
+    
+
     }
-    console.log('dcA', this.displayedColumnsAsis)
-    
-    
+    console.log('columns despues for', this.columns)
+  
   }
 
   /**
@@ -108,7 +125,6 @@ export class VerasistenciasComponent implements OnInit {
     // PROCESO PARA CARGA DATA SETS
   let forCol = {}
     //recorro USUARIOS (alumnos) existentes
-    let cntUs=0
     this.forDs=[]
     for (let ds of this.data['cap']['Usuarios']){
 
@@ -144,43 +160,26 @@ export class VerasistenciasComponent implements OnInit {
       }
       cnt = 0;
 
-    this.dataSourceAsis.data.push(forCol)
-
-    // this.forDs.push(forCol)
-    // cntUs++
-    // this.forCol={}
-    // this.cargaDS(this.forCol);
+    this.forDs.push(forCol)
+  
      forCol={}
+     
+
+
     }
-    // this.cargaDS(this.forCol);;
-    // console.log('this.forCol ', this.forCol)
 
-
-    // console.log('this.forDs ', this.forDs)
-    // for (let fds of this.forDs){
-    //   this.dataSourceAsis.data.push(fds) 
-    // }
-
-
-    // console.log('dsA',this.dataSourceAsis.data)
-
-    
-    // this.forCol={}
-    // this.cargaDS()
+ 
   }
 
   public async cargaDS(){
-    // await this.dataSourceAsis.data.push(forCol)
-    
-    // this.dataSourceAsis.data = this.forDs as any[];
-    // this.changeDetectorRef.detectChanges();
 
     const fdsa = this.forDs;
 
     for (let fds of fdsa){
       this.dataSourceAsis.data.push(fds)
     }
-    this.changeDetectorRef.detectChanges();
+
+    // this.changeDetectorRef.detectChanges();
     console.log('dsA',this.dataSourceAsis.data)
     
   }
@@ -197,16 +196,15 @@ export class VerasistenciasComponent implements OnInit {
 
     try {
       this.asistenciasService.asignarAsistencia(datos).then(res=>{
-        
+        // this.displayedColumnsAsis = ['id','Nombre', 'Apellido'];
+        this.refresh();
+        this.callGral();
         console.log('asistencia OK ',res)
       }); 
     } catch (error) {
       
     }
     console.log('datos: ', datos)
-
-    await this.getData();
-    await this.preparoDS();
   }
 
   // tslint:disable-next-line: typedef
