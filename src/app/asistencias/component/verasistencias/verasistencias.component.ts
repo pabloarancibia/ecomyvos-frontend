@@ -41,11 +41,14 @@ export class VerasistenciasComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.refresh();
+    // this.refresh();
     this.callGral(); 
 
   }
   refresh(){
+    this.data = []
+    this.columns = []
+    this.forDs = []
     this.displayedColumnsAsis = ['id','Nombre', 'Apellido'];
     this.dataSourceAsis = new MatTableDataSource;
 
@@ -72,12 +75,13 @@ export class VerasistenciasComponent implements OnInit {
   }
 
   public async callGral(){
+    await this.refresh();
     await this.getData();
-    this.cargoColumnas();
+    await this.cargoColumnas();
     // await this.cargoDCA();
-    this.preparoDS();
+    await this.preparoDS();
 
-    this.cargaDS();
+    await this.cargaDS();
 
     this.changeDetectorRef.detectChanges()
   }
@@ -89,10 +93,7 @@ export class VerasistenciasComponent implements OnInit {
     let obj = {};
     
     for (let c of this.data['cap']['Clases']){
-      // for (let f of this.data['cap']['Clases'][c]){
-        // obj[c] = this.data['cap']['Clases'][c]['fecha']
         obj[c.id] = c['fecha'] + '('+c.id+') ';
-      // }
      }
      console.log('obj',obj)
      this.columns.push(obj);
@@ -197,7 +198,7 @@ export class VerasistenciasComponent implements OnInit {
     try {
       this.asistenciasService.asignarAsistencia(datos).then(res=>{
         // this.displayedColumnsAsis = ['id','Nombre', 'Apellido'];
-        this.refresh();
+        // this.refresh();
         this.callGral();
         console.log('asistencia OK ',res)
       }); 
