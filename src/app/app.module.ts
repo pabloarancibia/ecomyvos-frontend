@@ -23,7 +23,6 @@ import { EqualValidatorDirective } from './directives/equal-validator.directive'
 
 
 
-
 @NgModule({
   declarations: [
     AppComponent,

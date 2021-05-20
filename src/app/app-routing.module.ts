@@ -48,6 +48,10 @@ const routes: Routes = [
         path: 'admin',
         loadChildren: () => import('./administracion/administracion.module').then(m => m.AdministracionModule)
       },
+      {
+        path: 'tableros',
+        loadChildren: () => import('./gcharts/gcharts.module').then(m => m.GchartsModule)
+      },
 
     ]
   },

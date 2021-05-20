@@ -39,4 +39,15 @@ export class AsistenciasService {
     }
 
 
+/**
+ * Obtener presentes agrupados por capacitacion
+ */
+    getPresentes(): Promise<any[]> {
+      return this._http.get(this.URL + 'presentes').toPromise().then(
+        (res: any[]) => {
+          return res;
+        });
+    }
+
+
 }
