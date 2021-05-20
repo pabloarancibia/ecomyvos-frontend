@@ -1,9 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AsistenciasService } from '@app/services/asistencias.service';
 
-
-
-
 @Component({
   selector: 'app-principal',
   templateUrl: './principal.component.html',
@@ -13,22 +10,16 @@ export class PrincipalComponent implements OnInit {
 
   capsAsis: any = []
 
-  title;
-  type ='ColumnChart';
-  data = [];
-  columnNames = [];
-  options = {};
-  width;
-  height;
 
   constructor(
     private asistenciasService: AsistenciasService
   ) { }
 
   ngOnInit(): void {
+    google.charts.load('current', {'packages':['corechart']});
+    google.charts.load('current', {'packages':['timeline']});
+
     this.getCapClasesAsis();
-    google.charts.load('current', {packages: ['corechart', 'bar']});
-    google.charts.setOnLoadCallback(this.drawBasic.bind(this));
 
 
   }
@@ -38,40 +29,19 @@ export class PrincipalComponent implements OnInit {
       this.asistenciasService.getPresentes()
       .then(res=>{
         this.capsAsis = res;
-        this.drawCapAsis()
+        // this.drawCapAsis()
+        google.charts.setOnLoadCallback(this.drawCapAsis.bind(this));
+        google.charts.setOnLoadCallback(this.drawCapTimeline.bind(this));
+
       })
     } catch (error) {
       
     }
   }
-  
-
-  drawCapAsis(){
-    this.title = 'Total de asistencias presentes por capacitación';
-
-    for (let c in this.capsAsis){
-      this.data.push([this.capsAsis[c].capacitacionId.toString(),this.capsAsis[c].asistencias])
-    };
-    this.columnNames = ['Capacitación', 'Asistencias'];
-    
-    this.options = {
-    colors: ['#e6693e'], 
-    is3D: true,
-    hAxis: {
-      title: 'Capacitación Id',
-    },
-    vAxis: {
-      title: 'Asistencias'
-    }
-    };
-    this.width = 550;
-    this.height = 400;
-
-}
 
 
 
-drawBasic() {
+drawCapAsis() {
 
   var data = new google.visualization.DataTable();
   data.addColumn('string', 'Capacitación');
@@ -105,6 +75,27 @@ drawBasic() {
   chart.draw(data, options);
 }
 
+drawCapTimeline(){
+  var container = document.getElementById('capsTimeline');
+        var chart = new google.visualization.Timeline(container);
+        var dataTable = new google.visualization.DataTable();
+
+        dataTable.addColumn({ type: 'string', id: 'Capacitaciones' });
+        dataTable.addColumn({ type: 'date', id: 'Start' });
+        dataTable.addColumn({ type: 'date', id: 'End' });
+        dataTable.addRows([
+          [ 'Cap uno', new Date(2021, 2, 1), new Date(2021, 2, 4) ],
+          [ 'Cap dos', new Date(2021, 1, 4),  new Date(2021, 2, 4) ],
+          [ 'Cap tres',new Date(2021, 2, 4),  new Date(2021, 3, 4) ]]);
+        
+          var options = {
+            title: 'Linea de tiempo de capacitaciones',
+            width:1400,
+            height:400,       
+          };
+
+        chart.draw(dataTable, options);
+}
   
 
 
