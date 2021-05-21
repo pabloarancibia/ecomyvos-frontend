@@ -25,6 +25,13 @@ export class CapacitacionesService {
       });
   }
 
+  getCapacitacionesfechas(): Promise<Capacitaciones[]> {
+    return this._http.get(this.URL + 'capacitacionesfechas').toPromise().then(
+      (capacitaciones: Capacitaciones[]) => {
+        return capacitaciones;
+      });
+  }
+
   getCapClasesAsis(): Promise<any[]> {
     return this._http.get(this.URL + 'capclasesasis').toPromise().then(
       (capacitaciones: any[]) => {

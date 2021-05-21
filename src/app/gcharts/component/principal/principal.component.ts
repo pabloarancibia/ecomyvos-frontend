@@ -1,5 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { AsistenciasService } from '@app/services/asistencias.service';
+import { CapacitacionesService } from '@app/services/capacitaciones.service';
+
+import * as moment from 'moment';
+
 
 @Component({
   selector: 'app-principal',
@@ -9,10 +13,13 @@ import { AsistenciasService } from '@app/services/asistencias.service';
 export class PrincipalComponent implements OnInit {
 
   capsAsis: any = []
+  capsFechas: any = []
+
 
 
   constructor(
-    private asistenciasService: AsistenciasService
+    private asistenciasService: AsistenciasService,
+    private capacitacionesService: CapacitacionesService
   ) { }
 
   ngOnInit(): void {
@@ -20,6 +27,8 @@ export class PrincipalComponent implements OnInit {
     google.charts.load('current', {'packages':['timeline']});
 
     this.getCapClasesAsis();
+    this.getCapFechasHoras();
+
 
 
   }
@@ -31,11 +40,19 @@ export class PrincipalComponent implements OnInit {
         this.capsAsis = res;
         // this.drawCapAsis()
         google.charts.setOnLoadCallback(this.drawCapAsis.bind(this));
-        google.charts.setOnLoadCallback(this.drawCapTimeline.bind(this));
-
       })
-    } catch (error) {
-      
+    } catch (error) {    
+    }
+  }
+
+  getCapFechasHoras(){
+    try {
+      this.capacitacionesService.getCapacitacionesfechas()
+      .then(res=>{
+        this.capsFechas = res;
+        google.charts.setOnLoadCallback(this.drawCapTimeline.bind(this));
+      })
+    } catch (error) {    
     }
   }
 
@@ -83,16 +100,29 @@ drawCapTimeline(){
         dataTable.addColumn({ type: 'string', id: 'Capacitaciones' });
         dataTable.addColumn({ type: 'date', id: 'Start' });
         dataTable.addColumn({ type: 'date', id: 'End' });
-        dataTable.addRows([
-          [ 'Cap uno', new Date(2021, 2, 1), new Date(2021, 2, 4) ],
-          [ 'Cap dos', new Date(2021, 1, 4),  new Date(2021, 2, 4) ],
-          [ 'Cap tres',new Date(2021, 2, 4),  new Date(2021, 3, 4) ]]);
+
+        for (let c in this.capsFechas){
+
+          let dateString = this.capsFechas[c].fechainicio;  
+          let momentVariable = moment(dateString);  
+          let stringvalueInicio = momentVariable.format('YYYY-MM-DD');
+
+          let dateStringFin = this.capsFechas[c].fechafin;  
+          let momentVariableFin = moment(dateStringFin);  
+          let stringvalueFin = momentVariableFin.format('YYYY-MM-DD');
+
+          dataTable.addRows([
+            [ this.capsFechas[c].nombre.toString(), 
+            new Date(stringvalueInicio + ',' + this.capsFechas[c].horainicio),
+            new Date(stringvalueFin + ',' + this.capsFechas[c].horafin)],
+          ]);
+        };
         
-          var options = {
-            title: 'Linea de tiempo de capacitaciones',
-            width:1400,
-            height:400,       
-          };
+        var options = {
+          title: 'Linea de tiempo de capacitaciones',
+          width:1400,
+          height:400,       
+        };
 
         chart.draw(dataTable, options);
 }
