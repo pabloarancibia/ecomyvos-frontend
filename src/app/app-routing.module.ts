@@ -52,6 +52,10 @@ const routes: Routes = [
         path: 'tableros',
         loadChildren: () => import('./gcharts/gcharts.module').then(m => m.GchartsModule)
       },
+      {
+        path: 'clases',
+        loadChildren: () => import('./clases/clases.module').then(m => m.ClasesModule)
+      },
 
     ]
   },

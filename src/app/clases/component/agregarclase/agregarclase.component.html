@@ -1,0 +1,45 @@
+<div class="content">
+    <div class="capacitacion" *ngIf="capacitacion" >
+        <h1>{{capacitacion.nombre | uppercase}}</h1>
+        <h2>
+            {{capacitacion.convenio | uppercase}} |
+            {{capacitacion.direccion}} |
+            {{capacitacion.fechainicio | date: 'dd/MM/yyyy'}} a
+            {{capacitacion.fechafin | date: 'dd/MM/yyyy'}} |
+            {{capacitacion.horainicio}} a
+            {{capacitacion.horafin}}
+        </h2>
+    </div>
+    <br>
+    <hr />
+    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+        <mat-card>
+            <mat-card-header>
+                <mat-card-title *ngIf="isAddMode">Agregar Clase</mat-card-title>
+                <mat-card-title *ngIf="!isAddMode">Editar Clase</mat-card-title>
+
+            </mat-card-header>
+            <mat-card-content>
+                <mat-form-field color="accent" appearance="fill">
+                    <mat-label>Fecha</mat-label>
+                    <input matInput [matDatepicker]="fecha" formControlName="fecha">
+                    <mat-datepicker-toggle matSuffix [for]="fecha"></mat-datepicker-toggle>
+                    <mat-datepicker #fecha></mat-datepicker>
+                </mat-form-field>
+                <br>
+                <br>
+                <mat-form-field appearance="fill">
+                    <mat-label>Observaciones</mat-label>
+                    <input matInput formControlName="observaciones">
+                </mat-form-field>
+                <br>
+                <button *ngIf="isAddMode" mat-raised-button color="primary">
+                    Guardar
+                </button>
+                <button *ngIf="!isAddMode" mat-raised-button color="primary">
+                    Guardar Cambios
+                </button>
+            </mat-card-content>
+        </mat-card>
+    </form>
+</div>

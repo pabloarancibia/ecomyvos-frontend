@@ -112,7 +112,6 @@ export class AgregarcapacitacionComponent implements OnInit {
           });
     } catch (error) {
       console.log(error);
-    }
-    
-}
+    }  
+  }
 }

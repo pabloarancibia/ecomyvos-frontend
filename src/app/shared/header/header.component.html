@@ -27,9 +27,10 @@
           mat-button [matMenuTriggerFor]="menuAdm">
             Administración
         </button>
-        <!-- ADM USUARIOS -->
+        <!-- ADM -->
           <mat-menu #menuAdm="matMenu"> 
-            <button mat-menu-item routerLink="/admin/usuarios">Administrar Usuarios</button>
+            <button mat-menu-item routerLink="/tableros/principal">Tableros</button>
+            <button mat-menu-item routerLink="/admin/usuarios">Usuarios</button>
           </mat-menu>
 
         <!-- INGRESAR/SALIR -->
@@ -96,8 +97,14 @@
         <button 
           *ngIf="authService.loggedIn() && authService.getRolLS()==='admin'" 
           mat-menu-item >
-          <a mat-button routerLink="/admin/usuarios">Administrar Usuarios</a>
+          <a mat-button routerLink="/tableros/principal">Tableros</a>
         </button>
+        <button 
+          *ngIf="authService.loggedIn() && authService.getRolLS()==='admin'" 
+          mat-menu-item >
+          <a mat-button routerLink="/admin/usuarios">Usuarios</a>
+        </button>
+        
 
         <!-- INGRESAR/SALIR -->
         <ng-container *ngIf="!authService.loggedIn(); else loggedIn">
