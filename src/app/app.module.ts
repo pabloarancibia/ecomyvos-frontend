@@ -20,6 +20,7 @@ import { HttpErrorInterceptor } from './services/interceptors/http-error-interce
 import { ErrorDialogComponent } from './errors/component/errordialog/errordialog.component';
 import { ErrorDialogService } from './services/error-dialog.service';
 import { EqualValidatorDirective } from './directives/equal-validator.directive';
+import { MAT_DATE_LOCALE } from '@angular/material/core';
 
 
 
@@ -62,7 +63,8 @@ import { EqualValidatorDirective } from './directives/equal-validator.directive'
       useClass: HttpErrorInterceptor, 
       multi: true 
     },
-    ErrorDialogService
+    ErrorDialogService,
+    {provide: MAT_DATE_LOCALE, useValue: 'es-ES'},
   ],
   bootstrap: [AppComponent],
   entryComponents: [ErrorDialogComponent],

@@ -45,6 +45,15 @@ export class ClaseService {
       });
   }
 
+  getClasesByCap(capId: number): Promise<any[]> {
+    return this._http.get(this.URL + 'clases/' + capId)
+    .toPromise()
+    .then(
+      (clases: any[]) => {
+        return clases;
+      });
+  }
+
 
 
 }

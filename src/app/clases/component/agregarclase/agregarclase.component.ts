@@ -1,4 +1,5 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, ChangeDetectorRef } from '@angular/core';
+import { MatTableDataSource } from '@angular/material/table';
 import { FormBuilder, FormGroup, FormGroupDirective, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 
@@ -14,11 +15,16 @@ import { ClaseService } from '@app/services/clase.service'
 })
 export class AgregarclaseComponent implements OnInit {
   @ViewChild(FormGroupDirective) formGroupDirective: FormGroupDirective;
+  ELEMENT_DATA: any[] = null;
+  displayedColumns: string[] = ['id', 'fecha', 'observaciones', 'accion'];
+  dataSource = new MatTableDataSource<any>(this.ELEMENT_DATA);
 
-    // Iniciales
+
+    // Iniciales // id = capacitacionId
     form: FormGroup;
     id: string;
     isAddMode: boolean =  true;
+    claseIdForEdit: number;
 
     public capacitacion: Capacitaciones = { nombre: '' };
 
@@ -27,7 +33,7 @@ export class AgregarclaseComponent implements OnInit {
     private clasesService: ClaseService,
     private capacitacionesService: CapacitacionesService,
     private formBuilder: FormBuilder,
-    private router: Router,
+    private changeDetectorRef: ChangeDetectorRef,
     private activatedRoute: ActivatedRoute
   ) {
     this.buildForm();
@@ -36,6 +42,7 @@ export class AgregarclaseComponent implements OnInit {
   ngOnInit(): void {
     this.id = this.activatedRoute.snapshot.params['id'];
     this.getCapacitacion(this.id);
+    this.traerClases(this.id);
     // if (this.claseId){
     //   this.isAddMode = false;
     //   this.getClase(this.ClaseId);
@@ -51,11 +58,11 @@ export class AgregarclaseComponent implements OnInit {
   }
 
   onSubmit(){
-    // if(this.isAddMode){
+    if(this.isAddMode){
       this.agregarClase();
-    // }else{
-    //   this.editarClase(this.id);
-    // }
+    }else{
+      this.editarClase(this.claseIdForEdit);
+    }
   }
 
   private async getCapacitacion(id) {
@@ -73,21 +80,65 @@ export class AgregarclaseComponent implements OnInit {
   agregarClase(){
     if (this.form.valid) {
       this.form.controls['capacitacionId'].setValue(this.id);
-      console.log('form.value: ', this.form.value);
+      // console.log('form.value: ', this.form.value);
       const clase= this.form.value;
       this.clasesService.crearClase(clase)
         .then(
           res => {
             this.formGroupDirective.resetForm(),
-              console.log('res: ',res);
+            this.traerClases(this.id)
           }
         )
         .catch(err => console.error(err));
     }
   }
 
-  editarClase(id){
+  asignarValoresEdit(claseId: number, fecha: string, observaciones: string){
+    this.isAddMode = false
+    this.form.controls['fecha'].setValue(fecha)
+    this.form.controls['observaciones'].setValue(observaciones)
+    this.claseIdForEdit = claseId
+  }
 
+  editarClase(claseId: number){
+    if (this.form.valid) {
+      this.form.controls['capacitacionId'].setValue(this.id);
+      const clase= this.form.value;
+      this.clasesService.modificarClase(claseId, clase)
+        .then(
+          res => {
+            this.formGroupDirective.resetForm(),
+            this.isAddMode = true,
+            this.traerClases(this.id)
+          }
+        )
+        .catch(err => console.error(err));
+    }
+  }
+
+  cancelarEdit(){
+    this.formGroupDirective.resetForm();
+    this.isAddMode = true
+  }
+
+ eliminarClase(claseId: number){
+    if(confirm("Está seguro que desea eliminar la clase id:"
+      +claseId+" (esta acción no se puede revertir) ")) 
+      {
+        this.clasesService.eliminarClase(claseId).then(
+          res=>{
+            this.traerClases(this.id)
+          }
+        )
+    }
+  }
+
+  private traerClases(capId){
+    this.clasesService.getClasesByCap(capId).then(res=>{
+      console.log(res)
+      this.dataSource.data = res
+    })
+    this.changeDetectorRef.detectChanges();
   }
 
 

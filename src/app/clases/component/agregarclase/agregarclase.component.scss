@@ -6,6 +6,8 @@
     flex-direction: column;//q todo se ubique en una columna
     min-height: 70%;
   }
+  
+
 
   form {
     width: 40%;
@@ -53,3 +55,11 @@
     width: 150px;
       }
 
+table {
+  width: 60%;
+}
+
+// espacio entre botones en accion
+.mat-mini-fab {
+  margin-right: 1em;
+}
