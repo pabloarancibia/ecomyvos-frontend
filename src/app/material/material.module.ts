@@ -18,6 +18,9 @@ import { MatListModule } from '@angular/material/list';
 import {MatMenuModule} from '@angular/material/menu';
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 
+import { MatGridListModule } from '@angular/material/grid-list';
+import { LayoutModule } from '@angular/cdk/layout';
+
 /**
  * ngx-material-timepicker 
  */
@@ -47,7 +50,9 @@ import { NgxMaterialTimepickerModule } from 'ngx-material-timepicker';
     MatSidenavModule,
     MatListModule,
     MatMenuModule,
-    MatSlideToggleModule
+    MatSlideToggleModule,
+    MatGridListModule,
+    LayoutModule
 
   ],
   exports: [
@@ -68,7 +73,9 @@ import { NgxMaterialTimepickerModule } from 'ngx-material-timepicker';
     MatSidenavModule,
     MatListModule,
     MatMenuModule,
-    MatSlideToggleModule
+    MatSlideToggleModule,
+    MatGridListModule,
+    LayoutModule
 
   ]
 })
