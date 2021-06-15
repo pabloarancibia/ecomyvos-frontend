@@ -22,7 +22,7 @@ export class DashComponent {
 
       return [
         { title: 'Asistencias por Capacitación', cols: 1, rows: 2, content:'app-bar-cap-asis' },
-        { title: 'Card 2', cols: 1, rows: 2, content:'app-pie-generos'},
+        { title: 'Alumnos por Género', cols: 1, rows: 2, content:'app-pie-generos'},
         { title: 'Duración Capacitaciones', cols: 2, rows: 1, content:'app-timeline-caps' },
         { title: 'Card 4', cols: 2, rows: 1 }
       ];

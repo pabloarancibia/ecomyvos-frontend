@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { AlumnosService } from '@app/services/alumnos.service';
+
 
 @Component({
   selector: 'app-pie-generos',
@@ -7,22 +9,40 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PieGenerosComponent implements OnInit {
 
-  constructor() { }
+  // variables 
+  datos = []
+
+  constructor(
+    private alumnosservice: AlumnosService
+  ) { }
 
   ngOnInit(): void {
+    this.traerDatos()
     google.charts.load("current", {packages:["corechart"]});
-    google.charts.setOnLoadCallback(this.drawChart.bind(this));
+  }
+
+  private traerDatos(){
+    this.alumnosservice.getCantAlumnosPorGenero().then(
+      res=>{
+        this.datos = res
+        google.charts.setOnLoadCallback(this.drawChart.bind(this));
+
+
+      }
+    )
   }
 
   private drawChart(){
-    var data = google.visualization.arrayToDataTable([
-      ['Task', 'Hours per Day'],
-      ['Work',     8],
-      ['Eat',      2],
-      ['Commute',  1],
-      ['Study', 5],
-      ['Sleep',    8]
-    ]);
+    var data = new google.visualization.DataTable();
+    data.addColumn('string', 'Género');
+    data.addColumn('number', 'Cantidad');
+
+    for (let c in this.datos){
+      data.addRows([
+        [this.datos[c].genero,
+          this.datos[c].count]
+      ]);
+    };
 
     var options = {
       // title: 'My Daily Activities',
