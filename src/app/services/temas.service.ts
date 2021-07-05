@@ -69,4 +69,20 @@ export class TemasService {
     })
   }
 
+
+  /**
+   * Cant de Capacitaciones por Tema específico
+   * @param temaId 
+   * @returns number: cantidad de capacitaciones que tiene ese tema
+   */
+  getCountCapsTema(temaId: number): Promise<any[]> {
+    return this._http.get(this.URL + 'countcapstema/' + temaId)
+    .toPromise()
+      .then(
+        (temas: any[]) => {
+          return temas;
+          }
+        );
+  }
+
 }
