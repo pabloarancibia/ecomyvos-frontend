@@ -21,6 +21,11 @@ import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { LayoutModule } from '@angular/cdk/layout';
 
+import {MatChipsModule} from '@angular/material/chips';
+import {MatAutocompleteModule} from '@angular/material/autocomplete';
+
+
+
 /**
  * ngx-material-timepicker 
  */
@@ -52,7 +57,9 @@ import { NgxMaterialTimepickerModule } from 'ngx-material-timepicker';
     MatMenuModule,
     MatSlideToggleModule,
     MatGridListModule,
-    LayoutModule
+    LayoutModule,
+    MatChipsModule,
+    MatAutocompleteModule,
 
   ],
   exports: [
@@ -75,7 +82,9 @@ import { NgxMaterialTimepickerModule } from 'ngx-material-timepicker';
     MatMenuModule,
     MatSlideToggleModule,
     MatGridListModule,
-    LayoutModule
+    LayoutModule,
+    MatChipsModule,
+    MatAutocompleteModule,
 
   ]
 })

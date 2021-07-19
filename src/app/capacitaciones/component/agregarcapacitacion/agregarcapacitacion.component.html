@@ -99,6 +99,34 @@
                     <input matInput formControlName="horafin" >
                 </mat-form-field> -->
                 <br>
+                <mat-form-field class="example-chip-list" appearance="fill">
+                    <mat-label>Temas a dictar</mat-label>
+                    <mat-chip-list #chipList aria-label="Tema selection">
+                      <mat-chip
+                        *ngFor="let tema of temas"
+                        [selectable]="selectable"
+                        [removable]="removable"
+                        (removed)="remove(tema)">
+                        {{tema}}
+                        <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+                      </mat-chip>
+                      <input
+                        placeholder="Nuevo tema..."
+                        #temaInput
+                        [formControl]="temaCtrl"
+                        [matAutocomplete]="auto"
+                        [matChipInputFor]="chipList"
+                        [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                        (matChipInputTokenEnd)="add($event)">
+                    </mat-chip-list>
+                    <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
+                      <mat-option *ngFor="let tema of filteredTemas | async" [value]="tema">
+                        {{tema}}
+                      </mat-option>
+                    </mat-autocomplete>
+                  </mat-form-field>
+                <br>
+
                 <mat-form-field appearance="fill">
                     <mat-label>Conectividad (Descarga en mbps)</mat-label>
                     <input matInput formControlName="conectividad_down">
