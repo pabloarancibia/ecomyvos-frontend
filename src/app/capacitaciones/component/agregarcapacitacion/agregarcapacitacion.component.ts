@@ -34,7 +34,7 @@ export class AgregarcapacitacionComponent implements OnInit {
   selectable = true;
   removable = true;
   separatorKeysCodes: number[] = [ENTER, COMMA];
-  // temaCtrl = new FormControl();
+  temaCtrl = new FormControl();
   filteredTemas: Observable<string[]>;
 
   temas: string[] = [];
@@ -88,7 +88,7 @@ export class AgregarcapacitacionComponent implements OnInit {
       observaciones: [''],
       lat: [''],
       lon: [''],
-      temaCtrl: new FormControl(),
+      //temaCtrl: new FormControl(),
       temasFrmCtrl: new FormControl(),
 
     });
@@ -174,8 +174,8 @@ export class AgregarcapacitacionComponent implements OnInit {
   }
 
   private cargarControl(){
-    //this.filteredTemas = this.temaCtrl.valueChanges.pipe(
-    this.filteredTemas = this.form.get('temaCtrl').valueChanges.pipe(
+    this.filteredTemas = this.temaCtrl.valueChanges.pipe(
+    //this.filteredTemas = this.form.get('temaCtrl').valueChanges.pipe(
       startWith(null),
       map((tema: string | null) => tema ? this._filter(tema) : this.allTemas.slice()));
   }
@@ -193,8 +193,8 @@ export class AgregarcapacitacionComponent implements OnInit {
     //event.chipInput!.clear();
      event.input!.value = '';
 
-    // this.temaCtrl.setValue(null);
-    this.form.get('temaCtrl').setValue(null);
+    this.temaCtrl.setValue(null);
+    //this.form.get('temaCtrl').setValue(null);
   }
 
   remove(tema: string): void {
@@ -211,7 +211,8 @@ export class AgregarcapacitacionComponent implements OnInit {
   selected(event: MatAutocompleteSelectedEvent): void {
     this.temas.push(event.option.viewValue);
     this.temaInput.nativeElement.value = '';
-    this.form.get('temaCtrl').setValue(null);
+    this.temaCtrl.setValue(null);
+    //this.form.get('temaCtrl').setValue(null);
   }
 
   private _filter(value: string): string[] {
