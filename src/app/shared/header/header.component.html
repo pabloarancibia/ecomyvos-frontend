@@ -29,7 +29,7 @@
         </button>
         <!-- ADM -->
           <mat-menu #menuAdm="matMenu"> 
-            <button mat-menu-item routerLink="/tableros/principal">Tableros</button>
+            <button mat-menu-item routerLink="/tableros/dash">Tableros</button>
             <button mat-menu-item routerLink="/admin/usuarios">Usuarios</button>
           </mat-menu>
 
@@ -97,7 +97,7 @@
         <button 
           *ngIf="authService.loggedIn() && authService.getRolLS()==='admin'" 
           mat-menu-item >
-          <a mat-button routerLink="/tableros/principal">Tableros</a>
+          <a mat-button routerLink="/tableros/dash">Tableros</a>
         </button>
         <button 
           *ngIf="authService.loggedIn() && authService.getRolLS()==='admin'" 
