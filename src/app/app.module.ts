@@ -46,7 +46,7 @@ import { MAT_DATE_LOCALE } from '@angular/material/core';
         tokenGetter: () => {
           return localStorage.getItem("access_token");
         },
-        allowedDomains: ["localhost:4200"],
+        allowedDomains: ["localhost:4200","http://ecomyvos.chaco.gob.ar:3000/","ecomyvos.chaco.gob.ar:3000"],
         // disallowedRoutes: ["http://example.com/examplebadroute/"],
       },
     })
